@@ -78,7 +78,7 @@ export const getCityById = async (id: string): Promise<City> => {
 
 export const updateCity = async (
     id: string,
-    cityData: Pick<City, "name" | "date" | "type" | "description" | "damage" | "resolution">,
+    cityData: Pick<City, "countryId" | "name" | "date" | "type" | "description" | "damage" | "resolution">,
 ): Promise<City> => {
     try {
         const city: City = await getCityById(id);
