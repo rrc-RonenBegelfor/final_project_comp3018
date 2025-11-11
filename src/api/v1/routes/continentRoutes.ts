@@ -16,14 +16,24 @@ const router: Router = express.Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ContinentCreate'
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               number:
+ *                 type: integer
+ *           example:
+ *             name: "Africa"
+ *             number: 1
  *     responses:
  *       '201':
  *         description: Continent created successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data: "Continent Created"
+ *               timestamp: "2004-12-31T12:00:00Z"
  *       '400':
  *         description: Validation failed
  *       '500':
@@ -42,8 +52,12 @@ router.post("/", continentController.createContinent);
  *         description: Continents retrieved successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/ContinentListResponse'
+ *             example:
+ *               message: "Continents retrieved successfully"
+ *               data:
+ *                 - id: "DaRVXicS82x7alS1yPk8"
+ *                   name: "Test"
+ *                   number: 123
  *       '500':
  *         description: Internal server error
  */
@@ -67,14 +81,28 @@ router.get("/", continentController.getContinent);
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/ContinentUpdate'
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *               number:
+ *                 type: integer
+ *           example:
+ *             name: "Europe"
+ *             number: 2
  *     responses:
  *       '200':
  *         description: Continent updated successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data:
+ *                 - id: "example"
+ *                   name: "example"
+ *                   number: 123
+ *               message: "Continent successfully updated"
+ *               timestamp: "2025-11-11T19:59:25.026Z"
  *       '400':
  *         description: Validation failed
  *       '404':
@@ -102,8 +130,10 @@ router.put("/:id", continentController.updateContinent);
  *         description: Continent deleted successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data: "Continent successfully deleted"
+ *               timestamp: "2025-11-11T19:59:37.525Z"
  *       '404':
  *         description: Continent not found
  *       '500':

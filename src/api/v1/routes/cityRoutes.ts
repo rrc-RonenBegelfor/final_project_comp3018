@@ -15,15 +15,23 @@ const router: Router = express.Router();
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CityCreate'
+ *           example:
+ *             countryId: ""
+ *             name: ""
+ *             date: ""
+ *             type: ""
+ *             description: ""
+ *             damage: ""
+ *             resolution: ""
  *     responses:
  *       '201':
  *         description: City created successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data: "City Created"
+ *               timestamp: "2004-12-31T12:00:00Z"
  *       '400':
  *         description: Validation failed
  *       '500':
@@ -48,8 +56,25 @@ router.post("/", cityController.createCity);
  *         description: Cities retrieved successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CityListResponse'
+ *             example:
+ *               message: "Cities retrieved successfully"
+ *               data:
+ *                 - id: "DaRVXicS82x7alS1yPk8"
+ *                   countryId: "UK"
+ *                   name: "London"
+ *                   date: "2023-10-01"
+ *                   type: "Flood"
+ *                   description: "Severe flooding in downtown area"
+ *                   damage: "High"
+ *                   resolution: "Evacuation and relief efforts underway"
+ *                 - id: "AbCdEfGhIjKlMnOpQrSt"
+ *                   countryId: "US"
+ *                   name: "New York"
+ *                   date: "2023-09-15"
+ *                   type: "Hurricane"
+ *                   description: "Category 4 hurricane making landfall"
+ *                   damage: "Severe"
+ *                   resolution: "State of emergency declared"
  *       '400':
  *         description: Invalid query parameters
  *       '404':
@@ -76,15 +101,32 @@ router.get("/", cityController.getCity);
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CityUpdate'
+ *           example:
+ *             countryId: ""
+ *             name: ""
+ *             date: ""
+ *             type: ""
+ *             description: ""
+ *             damage: ""
+ *             resolution: ""
  *     responses:
  *       '200':
  *         description: City updated successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data:
+ *                 id: "DaRVXicS82x7alS1yPk8"
+ *                 countryId: "UK"
+ *                 name: "London"
+ *                 date: "2023-10-01"
+ *                 type: "Flood"
+ *                 description: "Severe flooding in downtown area"
+ *                 damage: "High"
+ *                 resolution: "Evacuation and relief efforts underway"
+ *               message: "City successfully updated"
+ *               timestamp: "2025-11-11T19:59:25.026Z"
  *       '400':
  *         description: Validation failed
  *       '404':
@@ -112,8 +154,10 @@ router.put("/:id", cityController.updateCity);
  *         description: City deleted successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data: "City successfully deleted"
+ *               timestamp: "2025-11-11T19:59:37.525Z"
  *       '404':
  *         description: City not found
  *       '500':

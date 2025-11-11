@@ -15,15 +15,24 @@ const router: Router = express.Router();
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CountryCreate'
+ *           example:
+ *             continentId: ""
+ *             name: ""
+ *             data:
+ *               - date: ""
+ *                 type: ""
+ *                 description: ""
+ *                 damage: ""
+ *                 resolution: ""
  *     responses:
  *       '201':
  *         description: Country created successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data: "Country Created"
+ *               timestamp: "2004-12-31T12:00:00Z"
  *       '400':
  *         description: Validation failed
  *       '500':
@@ -48,8 +57,18 @@ router.post("/", countryController.createCountry);
  *         description: Countries retrieved successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/CountryListResponse'
+ *             example:
+ *               message: "Countries retrieved successfully"
+ *               data:
+ *                 - id: "DaRVXicS82x7alS1yPk8"
+ *                   continentId: "EU"
+ *                   name: "Germany"
+ *                   data:
+ *                     - date: "2025-01-01"
+ *                       type: "Flood"
+ *                       description: "Severe flooding in the northern region"
+ *                       damage: "High"
+ *                       resolution: "Evacuation and relief efforts underway"
  *       '400':
  *         description: Invalid query parameters
  *       '404':
@@ -76,15 +95,34 @@ router.get("/", countryController.getCountry);
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CountryUpdate'
+ *           example:
+ *             continentId: ""
+ *             name: ""
+ *             data:
+ *               - date: ""
+ *                 type: ""
+ *                 description: ""
+ *                 damage: ""
+ *                 resolution: ""
  *     responses:
  *       '200':
  *         description: Country updated successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data:
+ *                 id: "DaRVXicS82x7alS1yPk8"
+ *                 continentId: "EU"
+ *                 name: "Germany"
+ *                 data:
+ *                   - date: "2025-01-01"
+ *                     type: "Flood"
+ *                     description: "Severe flooding in the northern region"
+ *                     damage: "High"
+ *                     resolution: "Evacuation and relief efforts underway"
+ *               message: "Country successfully updated"
+ *               timestamp: "2025-11-11T19:59:25.026Z"
  *       '400':
  *         description: Validation failed
  *       '404':
@@ -112,8 +150,10 @@ router.put("/:id", countryController.updateCountry);
  *         description: Country deleted successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data: "Country successfully deleted"
+ *               timestamp: "2025-11-11T19:59:37.525Z"
  *       '404':
  *         description: Country not found
  *       '500':
