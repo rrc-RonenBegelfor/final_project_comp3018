@@ -77,7 +77,7 @@ export const updateCity = async (
 
         const {error, value } = citySchemas.update.body.validate(req.body, { abortEarly: false})
         
-        const { name, date, type, description, damage, resolution} = value;
+        const { countryId, name, date, type, description, damage, resolution} = value;
 
         if (error) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
@@ -89,6 +89,7 @@ export const updateCity = async (
         }
 
         const updatedCity: City = await cityService.updateCity(id, {
+            countryId,
             name,
             date,
             type,

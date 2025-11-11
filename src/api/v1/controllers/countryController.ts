@@ -77,7 +77,7 @@ export const updateCountry = async (
 
         const {error, value } = countrySchemas.update.body.validate(req.body, { abortEarly: false})
         
-        const { name, data} = value;
+        const { continentId, name, data} = value;
 
         if (error) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
@@ -89,6 +89,7 @@ export const updateCountry = async (
         }
 
         const updatedCountry: Country = await countryService.updateCountry(id, {
+            continentId,
             name,
             data,
         });

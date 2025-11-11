@@ -32,6 +32,7 @@ export const getCountry = async(): Promise<Country[]> => {
 };
 
 export const createCountry = async (countryData: {
+    continentId: string;
     name: string;
     data: {
         date: string;
@@ -39,7 +40,7 @@ export const createCountry = async (countryData: {
         description: string;
         damage: string;
         resolution: string;
-    }[]
+    }[];
 }): Promise<Country> => {
     try {
         const newCountry: Partial<Country> = {
@@ -79,7 +80,7 @@ export const getCountryById = async (id: string): Promise<Country> => {
 
 export const updateCountry = async (
     id: string,
-    countryData: Pick<Country, "name" | "data">,
+    countryData: Pick<Country, "continentId" | "name" | "data">,
 ): Promise<Country> => {
     try {
         const country: Country = await getCountryById(id);

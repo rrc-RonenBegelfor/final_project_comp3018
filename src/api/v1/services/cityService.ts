@@ -32,6 +32,7 @@ export const getCity = async(): Promise<City[]> => {
 };
 
 export const createCity = async (cityData: {
+    countryId: string;
     name: string;
     date: string;
     type: string;

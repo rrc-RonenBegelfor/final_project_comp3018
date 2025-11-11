@@ -14,10 +14,15 @@ export const citySchemas: {
 } = {
     create: {
         body: Joi.object<CityRequestModel>({
+            countryId: Joi.string().trim().min(4).optional().messages({
+                "string.base": "CountryId must be a string",
+                "string.empty": "CountryId cannot be empty",
+                "string.min": "CountryId should have at least 4 characters",
+            }),
             name: Joi.string().trim().required().min(4).messages({
                 "string.base": "City name must be a type of string",
                 "string.empty": "City name cannot be empty",
-                "string.min": "City name should have a minimum length of 3",
+                "string.min": "City name should have a minimum length of 4",
                 "any.required": "City name is required",
             }),
             date: Joi.string().trim().required().messages({
@@ -49,6 +54,11 @@ export const citySchemas: {
     },
     update: {
         body: Joi.object<CityRequestModel>({
+            countryId: Joi.string().trim().min(4).optional().messages({
+                "string.base": "CountryId must be a string",
+                "string.empty": "CountryId cannot be empty",
+                "string.min": "CountryId should have at least 4 characters",
+            }),
             name: Joi.string().trim().min(4).messages({
                 "string.base": "City name must be a type of string",
                 "string.empty": "City name cannot be empty",
@@ -84,10 +94,10 @@ export const citySchemas: {
     },
     query: {
         params: Joi.object({
-            country: Joi.string().trim().min(4).optional().messages({
-                "string.base": "Country must be a string",
-                "string.empty": "Country cannot be empty",
-                "string.min": "Country should have at least 4 characters",
+            countryId: Joi.string().trim().min(4).optional().messages({
+                "string.base": "CountryId must be a string",
+                "string.empty": "CountryId cannot be empty",
+                "string.min": "CountryId should have at least 4 characters",
             }),
         }),
     },
