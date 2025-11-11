@@ -44,9 +44,9 @@ export const createCity = async (cityData: {
             ...cityData,
         };
 
-        const continentId: string = await createDocument<City>(collection, newCity);
+        const cityId: string = await createDocument<City>(collection, newCity);
 
-        return structuredClone({ id: continentId, ...newCity} as City);
+        return structuredClone({ id: cityId, ...newCity} as City);
     } catch (error: unknown) {
         throw error;
     }
