@@ -3,7 +3,7 @@ import {
     DocumentData,
     DocumentSnapshot,
 } from "firebase-admin/firestore";
-import { Country } from "../models/countryhModel";
+import { Country } from "../models/countryModel";
 import {
     createDocument,
     getDocuments,
@@ -79,7 +79,7 @@ export const getCountryById = async (id: string): Promise<Country> => {
 
 export const updateCountry = async (
     id: string,
-    countryData: Pick<Country, "name" | "date" | "type" | "description" | "damage" | "resolution">,
+    countryData: Pick<Country, "name" | "data">,
 ): Promise<Country> => {
     try {
         const country: Country = await getCountryById(id);
@@ -90,26 +90,8 @@ export const updateCountry = async (
 
         const updateCountry: Country = {
             ...country,
+            ...countryData,
         };
-
-        if (countryData.name !== undefined) {
-            countryData.name = countryData.name;
-        }
-        if (countryData.date !== undefined) {
-            countryData.date = countryData.date;
-        }
-        if (countryData.type !== undefined) {
-            countryData.type = countryData.type;
-        }
-        if (countryData.description !== undefined) {
-            countryData.description = countryData.description;
-        }
-        if (countryData.damage !== undefined) {
-            countryData.damage = countryData.damage;
-        }
-        if (countryData.resolution !== undefined) {
-            countryData.resolution = countryData.resolution;
-        }
 
         await updateDocument<Country>(collection, id, updateCountry);
 

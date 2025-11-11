@@ -88,26 +88,8 @@ export const updateCity = async (
 
         const updateCity: City = {
             ...city,
+            ...cityData,
         };
-
-        if (cityData.name !== undefined) {
-            cityData.name = cityData.name;
-        }
-        if (cityData.date !== undefined) {
-            cityData.date = cityData.date;
-        }
-        if (cityData.type !== undefined) {
-            cityData.type = cityData.type;
-        }
-        if (cityData.description !== undefined) {
-            cityData.description = cityData.description;
-        }
-        if (cityData.damage !== undefined) {
-            cityData.damage = cityData.damage;
-        }
-        if (cityData.resolution !== undefined) {
-            cityData.resolution = cityData.resolution;
-        }
 
         await updateDocument<City>(collection, id, updateCity);
 
