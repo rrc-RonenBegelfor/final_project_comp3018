@@ -61,7 +61,7 @@ export const updateContinent = async (
 
         const {error, value } = continentSchemas.update.body.validate(req.body, { abortEarly: false})
         
-        const { name, data} = value;
+        const { name, number} = value;
 
         if (error) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
@@ -74,7 +74,7 @@ export const updateContinent = async (
 
         const updatedContinent: Continent = await continentService.updateContinent(id, {
             name,
-            data,
+            number,
         });
 
         res.status(HTTP_STATUS.OK).json(

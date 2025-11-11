@@ -11,20 +11,24 @@ export const getCity = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { country } = req.query;
+        const { error, value } = citySchemas.query.params.validate(req.query);
+        if (error) {
+            res.status(400).json({ message: error.message });
+        }
 
-        let cities: City[];
-        
-        if (typeof country === "string") {
-            cities = await cityService.getCityForCountry(country.toLocaleLowerCase());
+        const { country } = value;
+        let cities;
 
+        if (country) {
+            cities = await cityService.getCityForCountry(country.toLowerCase());
             if (cities.length === 0) {
-                res.status(HTTP_STATUS.NOT_FOUND).json({
-                    country: country,
+                    res.status(HTTP_STATUS.NOT_FOUND).json({
+                    country,
                     data: [],
+                    message: "No cities found for the specified country",
                 });
             }
-        } else {    
+        } else {
             cities = await cityService.getCity();
         }
 

@@ -11,27 +11,31 @@ export const getCountry = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { country } = req.query;
+        const { error, value } = countrySchemas.query.params.validate(req.query);
+        if (error) {
+            res.status(400).json({ message: error.message });
+        }
 
-        let countries: Country[];
-        
-        if (typeof country === "string") {
-            countries = await countryService.getCountryForContinent(country.toLocaleLowerCase());
+        const { continent } = value;
+        let countries;
 
+        if (continent) {
+            countries = await countryService.getCountryForContinent(continent.toLowerCase());
             if (countries.length === 0) {
-                res.status(HTTP_STATUS.NOT_FOUND).json({
-                    country: country,
+                    res.status(HTTP_STATUS.NOT_FOUND).json({
+                    continent,
                     data: [],
+                    message: "No countries found for the specified continent",
                 });
             }
-        } else {    
+        } else {
             countries = await countryService.getCountry();
         }
 
         res.status(HTTP_STATUS.OK).json({
             message: "Countries retrieved successfully",
             data: countries,
-        });
+                });
     } catch (error: unknown) {
         next(error);
     }
