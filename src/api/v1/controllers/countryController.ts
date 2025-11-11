@@ -24,14 +24,14 @@ export const getCountry = async (
             res.status(400).json({ message: error.message });
         }
 
-        const { continent } = value;
+        const { continentId } = value;
         let countries;
 
-        if (continent) {
-            countries = await countryService.getCountryForContinent(continent.toLowerCase());
+        if (continentId) {
+            countries = await countryService.getCountryForContinent(continentId.toLowerCase());
             if (countries.length === 0) {
                     res.status(HTTP_STATUS.NOT_FOUND).json({
-                    continent,
+                    continentId,
                     data: [],
                     message: "No countries found for the specified continent",
                 });
@@ -43,7 +43,7 @@ export const getCountry = async (
         res.status(HTTP_STATUS.OK).json({
             message: "Countries retrieved successfully",
             data: countries,
-                });
+        });
     } catch (error: unknown) {
         next(error);
     }

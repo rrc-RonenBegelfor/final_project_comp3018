@@ -25,14 +25,14 @@ export const getCity = async (
             res.status(400).json({ message: error.message });
         }
 
-        const { country } = value;
+        const { countryId } = value;
         let cities;
 
-        if (country) {
-            cities = await cityService.getCityForCountry(country.toLowerCase());
+        if (countryId ) {
+            cities = await cityService.getCityForCountry(countryId.toLowerCase());
             if (cities.length === 0) {
                     res.status(HTTP_STATUS.NOT_FOUND).json({
-                    country,
+                    countryId,
                     data: [],
                     message: "No cities found for the specified country",
                 });

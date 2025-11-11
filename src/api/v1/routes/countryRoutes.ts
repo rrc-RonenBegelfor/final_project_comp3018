@@ -39,7 +39,7 @@ router.post("/", countryController.createCountry);
  *     tags: [Countries]
  *     parameters:
  *       - in: query
- *         name: continent
+ *         name: continentId
  *         schema:
  *           type: string
  *         description: Optional continent name to filter countries (case-insensitive)

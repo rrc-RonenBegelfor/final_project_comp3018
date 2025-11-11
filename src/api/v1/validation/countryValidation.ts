@@ -66,12 +66,12 @@ export const countrySchemas: {
     },
     update: {
         body: Joi.object<CountryRequestModel>({
-            continentId: Joi.string().trim().min(2).required().messages({
+            continentId: Joi.string().trim().min(2).optional().messages({
                 "string.base": "ContinentId must be a string",
                 "string.empty": "ContinentId cannot be empty",
                 "string.min": "ContinentId should have at least 2 characters",
             }),
-            name: Joi.string().trim().min(3).messages({
+            name: Joi.string().trim().min(3).optional().messages({
                 "string.base": "Country name must be a type of string",
                 "string.empty": "Country name cannot be empty",
                 "string.min": "Country name should have a minimum length of 3",

@@ -12,7 +12,7 @@ import {
     deleteDocument,
 } from "../repositories/firestoreRepository";
 
-const collection: string ="countries";
+const collection: string = "countries";
 
 export const getCountry = async(): Promise<Country[]> => {
     try {
@@ -91,8 +91,16 @@ export const updateCountry = async (
 
         const updateCountry: Country = {
             ...country,
-            ...countryData,
+            data: countryData.data ? countryData.data : country.data,
         };
+
+        if (countryData.continentId !== undefined) {
+            updateCountry.continentId = countryData.continentId;
+        }
+
+        if (countryData.name !== undefined) {
+            updateCountry.name = countryData.name;
+        }
 
         await updateDocument<Country>(collection, id, updateCountry);
 

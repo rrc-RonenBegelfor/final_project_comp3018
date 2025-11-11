@@ -39,7 +39,7 @@ router.post("/", cityController.createCity);
  *     tags: [Cities]
  *     parameters:
  *       - in: query
- *         name: country
+ *         name: countryId
  *         schema:
  *           type: string
  *         description: Optional country name to filter cities (case-insensitive)
