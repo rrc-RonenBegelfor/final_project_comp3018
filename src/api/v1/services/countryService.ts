@@ -114,3 +114,22 @@ export const deleteCountry = async (id: string): Promise<void> => {
         throw error;
     }
 };
+
+export const getCountryForContinent = async (continentId: string): Promise<Country[]> => {
+    try {
+        const snapshot: QuerySnapshot = await getDocuments(collection);
+        const countries: Country[] = snapshot.docs.map((doc) => {
+            const data: DocumentData = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+            } as Country;
+        });
+
+        const filteredCountries = countries.filter((c) => c.continentId.toLowerCase() === continentId.toLowerCase());
+
+        return filteredCountries;
+    } catch (error: unknown) {
+        throw error;
+    }
+}

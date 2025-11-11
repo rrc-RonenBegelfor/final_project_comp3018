@@ -112,3 +112,22 @@ export const deleteCity = async (id: string): Promise<void> => {
         throw error;
     }
 };
+
+export const getCityForCountry = async (countryId: string): Promise<City[]> => {
+    try {
+        const snapshot: QuerySnapshot = await getDocuments(collection);
+        const cities: City[] = snapshot.docs.map((doc) => {
+            const data: DocumentData = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+            } as City;
+        });
+
+        const filteredCities = cities.filter((c) => c.countryId.toLowerCase() === countryId.toLowerCase());
+
+        return filteredCities;
+    } catch (error: unknown) {
+        throw error;
+    }
+}

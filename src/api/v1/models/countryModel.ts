@@ -1,5 +1,6 @@
 export interface Country {
     id?: string;
+    continentId: string;
     name: string;
     data: {
         date: string;

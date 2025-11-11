@@ -1,4 +1,5 @@
 export interface CountryRequestModel {
+    continentId: string;
     name: string;
     data: {
         date: string;
