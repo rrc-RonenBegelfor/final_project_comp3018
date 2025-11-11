@@ -55,11 +55,11 @@ export const countrySchemas: {
                         }),
                     })
                 )
-                .min(1)
+                .min(5)
                 .required()
                 .messages({
                     "array.base": "Data must be an array of events",
-                    "array.min": "At least one event is required",
+                    "array.min": "At least five events or more are required",
                     "any.required": "Data is required",
                 }),
         }),
