@@ -10,6 +10,9 @@ const router: Router = express.Router();
  * /countries:
  *   post:
  *     summary: Create a new country
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and either 'manager' or 'historian' role.
  *     tags: [Countries]
  *     requestBody:
  *       required: true
@@ -35,6 +38,10 @@ const router: Router = express.Router();
  *               timestamp: "2004-12-31T12:00:00Z"
  *       '400':
  *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions (requires roles: manager or historian)
  *       '500':
  *         description: Internal server error
  */
@@ -45,6 +52,9 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  * /countries:
  *   get:
  *     summary: Retrieve countries
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication.
  *     tags: [Countries]
  *     parameters:
  *       - in: query
@@ -71,6 +81,8 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  *                       resolution: "Evacuation and relief efforts underway"
  *       '400':
  *         description: Invalid query parameters
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
  *       '404':
  *         description: No countries found for the specified continent
  *       '500':
@@ -83,6 +95,9 @@ router.get("/", authenticate, countryController.getCountry);
  * /countries/{id}:
  *   put:
  *     summary: Update a country by ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and 'historian' role.
  *     tags: [Countries]
  *     parameters:
  *       - in: path
@@ -125,6 +140,10 @@ router.get("/", authenticate, countryController.getCountry);
  *               timestamp: "2025-11-11T19:59:25.026Z"
  *       '400':
  *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions (requires role: historian)
  *       '404':
  *         description: Country not found
  *       '500':
@@ -137,6 +156,9 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), countr
  * /countries/{id}:
  *   delete:
  *     summary: Delete a country by ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and 'manager' role.
  *     tags: [Countries]
  *     parameters:
  *       - in: path
@@ -154,6 +176,10 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), countr
  *               status: "success"
  *               data: "Country successfully deleted"
  *               timestamp: "2025-11-11T19:59:37.525Z"
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions (requires role: manager)
  *       '404':
  *         description: Country not found
  *       '500':

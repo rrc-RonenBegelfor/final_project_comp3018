@@ -10,6 +10,9 @@ const router: Router = express.Router();
  * /cities:
  *   post:
  *     summary: Create a new city
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and either 'manager' or 'historian' role.
  *     tags: [Cities]
  *     requestBody:
  *       required: true
@@ -34,6 +37,10 @@ const router: Router = express.Router();
  *               timestamp: "2004-12-31T12:00:00Z"
  *       '400':
  *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions
  *       '500':
  *         description: Internal server error
  */
@@ -44,6 +51,9 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  * /cities:
  *   get:
  *     summary: Retrieve cities
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication.
  *     tags: [Cities]
  *     parameters:
  *       - in: query
@@ -77,6 +87,8 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  *                   resolution: "State of emergency declared"
  *       '400':
  *         description: Invalid query parameters
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
  *       '404':
  *         description: No cities found for the specified country
  *       '500':
@@ -89,6 +101,9 @@ router.get("/", authenticate, cityController.getCity);
  * /cities/{id}:
  *   put:
  *     summary: Update a city by ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and 'historian' role.
  *     tags: [Cities]
  *     parameters:
  *       - in: path
@@ -129,6 +144,10 @@ router.get("/", authenticate, cityController.getCity);
  *               timestamp: "2025-11-11T19:59:25.026Z"
  *       '400':
  *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions
  *       '404':
  *         description: City not found
  *       '500':
@@ -141,6 +160,9 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), cityCo
  * /cities/{id}:
  *   delete:
  *     summary: Delete a city by ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and 'manager' role.
  *     tags: [Cities]
  *     parameters:
  *       - in: path
@@ -158,6 +180,10 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), cityCo
  *               status: "success"
  *               data: "City successfully deleted"
  *               timestamp: "2025-11-11T19:59:37.525Z"
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions
  *       '404':
  *         description: City not found
  *       '500':

@@ -11,6 +11,9 @@ const router: Router = express.Router();
  *   post:
  *     summary: Create a new continent
  *     tags: [Continents]
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and either 'manager' or 'historian' role.
  *     requestBody:
  *       required: true
  *       content:
@@ -36,6 +39,10 @@ const router: Router = express.Router();
  *               timestamp: "2004-12-31T12:00:00Z"
  *       '400':
  *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized
+ *       '403':
+ *         description: Forbidden - insufficient permissions
  *       '500':
  *         description: Internal server error
  */
@@ -47,6 +54,9 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  *   get:
  *     summary: Retrieve continents
  *     tags: [Continents]
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication.
  *     responses:
  *       '200':
  *         description: Continents retrieved successfully
@@ -58,6 +68,8 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  *                 - id: "DaRVXicS82x7alS1yPk8"
  *                   name: "Test"
  *                   number: 123
+ *       '401':
+ *         description: Unauthorized
  *       '500':
  *         description: Internal server error
  */
@@ -69,6 +81,9 @@ router.get("/", authenticate, continentController.getContinent);
  *   put:
  *     summary: Update a continent by ID
  *     tags: [Continents]
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and 'historian' role.
  *     parameters:
  *       - in: path
  *         name: id
@@ -105,6 +120,10 @@ router.get("/", authenticate, continentController.getContinent);
  *               timestamp: "2025-11-11T19:59:25.026Z"
  *       '400':
  *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized
+ *       '403':
+ *         description: Forbidden - insufficient permissions
  *       '404':
  *         description: Continent not found
  *       '500':
@@ -118,6 +137,9 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), contin
  *   delete:
  *     summary: Delete a continent by ID
  *     tags: [Continents]
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and 'manager' role.
  *     parameters:
  *       - in: path
  *         name: id
@@ -134,6 +156,10 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), contin
  *               status: "success"
  *               data: "Continent successfully deleted"
  *               timestamp: "2025-11-11T19:59:37.525Z"
+ *       '401':
+ *         description: Unauthorized
+ *       '403':
+ *         description: Forbidden - insufficient permissions
  *       '404':
  *         description: Continent not found
  *       '500':
