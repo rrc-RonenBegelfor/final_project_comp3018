@@ -5,6 +5,14 @@ import { Country } from "../models/countryModel";
 import { countrySchemas } from "../validation/countryValidation";
 import { successResponse } from "../models/responseModel";
 
+/**
+ * Retrieves countries from the database.
+ *
+ * @param req Express request object, with optional `continent` in query string.
+ * @param res Express response object, used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a JSON object containing a message and country data, or passes error to next middleware.
+ */
 export const getCountry = async (
     req: Request,
     res: Response,
@@ -41,6 +49,14 @@ export const getCountry = async (
     }
 };
 
+/**
+ * Creates a new country in the database.
+ *
+ * @param req Express request object containing country data in the body.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a success message or passes error to next middleware.
+ */
 export const createCountry = async (
     req: Request,
     res: Response,
@@ -67,6 +83,14 @@ export const createCountry = async (
     }
 };
 
+/**
+ * Updates an existing country in the database by ID.
+ *
+ * @param req Express request object containing country ID in params and updated data in the body.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with the updated country or passes error to next middleware.
+ */
 export const updateCountry = async (
     req: Request,
     res: Response,
@@ -102,6 +126,14 @@ export const updateCountry = async (
     }
 };
 
+/**
+ * Deletes a country from the database by ID.
+ *
+ * @param req Express request object containing country ID in params.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a success message or passes error to next middleware.
+ */
 export const deleteCountry = async (
     req: Request,
     res: Response,

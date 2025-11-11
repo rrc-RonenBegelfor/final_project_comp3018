@@ -5,6 +5,15 @@ import { City } from "../models/cityModel";
 import { citySchemas } from "../validation/cityValidation";
 import { successResponse } from "../models/responseModel";
 
+
+/**
+ * Retrieves cities from the database.
+ *
+ * @param req Express request object, with optional `country` in query string.
+ * @param res Express response object, used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a JSON object containing a message and city data, or passes error to next middleware.
+ */
 export const getCity = async (
     req: Request,
     res: Response,
@@ -41,6 +50,14 @@ export const getCity = async (
     }
 };
 
+/**
+ * Creates a new city in the database.
+ *
+ * @param req Express request object containing city data in the body.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a success message or passes error to next middleware.
+ */
 export const createCity = async (
     req: Request,
     res: Response,
@@ -67,6 +84,14 @@ export const createCity = async (
     }
 };
 
+/**
+ * Updates an existing city in the database by ID.
+ *
+ * @param req Express request object containing city ID in params and updated data in the body.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with the updated city or passes error to next middleware.
+ */
 export const updateCity = async (
     req: Request,
     res: Response,
@@ -106,6 +131,16 @@ export const updateCity = async (
     }
 };
 
+/**
+ * Deletes a city from the database by ID.
+ *
+ * Expects city ID in the request params. On success, responds with 200 and a success message.
+ *
+ * @param req Express request object containing city ID in params.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a success message or passes error to next middleware.
+ */
 export const deleteCity = async (
     req: Request,
     res: Response,

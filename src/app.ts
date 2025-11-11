@@ -10,6 +10,7 @@ import countryRoutes from "./api/v1/routes/countryRoutes";
 import citiesRoutes from "./api/v1/routes/cityRoutes";
 import userRoutes from "./api/v1/routes/userRoutes";
 import adminRoutes from "./api/v1/routes/adminRoutes";
+import setupSwagger from "./config/swagger";
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(consoleLogger);
 
 // Body parsing middleware
 app.use(express.json());
+setupSwagger(app);
 
 // API Routes
 app.use("/api/v1/continents", continentRoutes);

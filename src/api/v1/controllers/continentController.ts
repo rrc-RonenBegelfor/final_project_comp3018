@@ -5,6 +5,14 @@ import { Continent } from "../models/continentModel";
 import { continentSchemas } from "../validation/continentValidation";
 import { successResponse } from "../models/responseModel";
 
+/**
+ * Retrieves all continents from the database.
+ *
+ * @param req Express request object.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a JSON object containing a message and continent data, or passes error to next middleware.
+ */
 export const getContinent = async (
     req: Request,
     res: Response,
@@ -17,7 +25,7 @@ export const getContinent = async (
         continents = await continentService.getContinent();
 
         res.status(HTTP_STATUS.OK).json({
-            message: "Countries retrieved successfully",
+            message: "Continents retrieved successfully",
             data: continents,
         });
     } catch (error: unknown) {
@@ -25,6 +33,14 @@ export const getContinent = async (
     }
 };
 
+/**
+ * Creates a new continent in the database.
+ * 
+ * @param req Express request object containing continent data in the body.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a success message or passes error to next middleware.
+ */
 export const createContinent = async (
     req: Request,
     res: Response,
@@ -51,6 +67,14 @@ export const createContinent = async (
     }
 };
 
+/**
+ * Updates an existing continent in the database by ID.
+ *
+ * @param req Express request object containing continent ID in params and updated data in the body.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with the updated continent or passes error to next middleware.
+ */
 export const updateContinent = async (
     req: Request,
     res: Response,
@@ -85,6 +109,14 @@ export const updateContinent = async (
     }
 };
 
+/**
+ * Deletes a continent from the database by ID.
+ *
+ * @param req Express request object containing continent ID in params.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a success message or passes error to next middleware.
+ */
 export const deleteContinent = async (
     req: Request,
     res: Response,

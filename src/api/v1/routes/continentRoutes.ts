@@ -5,9 +5,110 @@ import * as continentController from "../controllers/continentController";
 
 const router: Router = express.Router();
 
+/**
+ * @openapi
+ * /continents:
+ *   post:
+ *     summary: Create a new continent
+ *     tags: [Continents]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ContinentCreate'
+ *     responses:
+ *       '201':
+ *         description: Continent created successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       '400':
+ *         description: Validation failed
+ *       '500':
+ *         description: Internal server error
+ */
 router.post("/", continentController.createContinent);
+
+/**
+ * @openapi
+ * /continents:
+ *   get:
+ *     summary: Retrieve continents
+ *     tags: [Continents]
+ *     responses:
+ *       '200':
+ *         description: Continents retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ContinentListResponse'
+ *       '500':
+ *         description: Internal server error
+ */
 router.get("/", continentController.getContinent);
+
+/**
+ * @openapi
+ * /continents/{id}:
+ *   put:
+ *     summary: Update a continent by ID
+ *     tags: [Continents]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The continent identifier
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ContinentUpdate'
+ *     responses:
+ *       '200':
+ *         description: Continent updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       '400':
+ *         description: Validation failed
+ *       '404':
+ *         description: Continent not found
+ *       '500':
+ *         description: Internal server error
+ */
 router.put("/:id", continentController.updateContinent);
+
+/**
+ * @openapi
+ * /continents/{id}:
+ *   delete:
+ *     summary: Delete a continent by ID
+ *     tags: [Continents]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The continent identifier
+ *     responses:
+ *       '200':
+ *         description: Continent deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/SuccessResponse'
+ *       '404':
+ *         description: Continent not found
+ *       '500':
+ *         description: Internal server error
+ */
 router.delete("/:id", continentController.deleteContinent);
 
 export default router;
