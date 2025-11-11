@@ -41,7 +41,7 @@ const router: Router = express.Router();
  *       '401':
  *         description: Unauthorized - missing or invalid authentication token
  *       '403':
- *         description: Forbidden - insufficient permissions (requires roles: manager or historian)
+ *         description: Forbidden - insufficient permissions
  *       '500':
  *         description: Internal server error
  */
@@ -143,7 +143,7 @@ router.get("/", authenticate, countryController.getCountry);
  *       '401':
  *         description: Unauthorized - missing or invalid authentication token
  *       '403':
- *         description: Forbidden - insufficient permissions (requires role: historian)
+ *         description: Forbidden - insufficient permissions
  *       '404':
  *         description: Country not found
  *       '500':
@@ -179,7 +179,7 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), countr
  *       '401':
  *         description: Unauthorized - missing or invalid authentication token
  *       '403':
- *         description: Forbidden - insufficient permissions (requires role: manager)
+ *         description: Forbidden - insufficient permissions
  *       '404':
  *         description: Country not found
  *       '500':
