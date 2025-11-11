@@ -5,9 +5,9 @@ import isAuthorized from "../middleware/authorize";
 
 const router: Router = express.Router();
 
-router.post("/", continentController.createCountry);
-router.get("/", continentController.getCountry);
-router.put("/:id", continentController.updateCountry);
-router.delete("/:id", continentController.deleteCountry);
+router.post("/", continentController.createContinent);
+router.get("/", continentController.getContinent);
+router.put("/:id", continentController.updateContinent);
+router.delete("/:id", continentController.deleteContinent);
 
 export default router;
