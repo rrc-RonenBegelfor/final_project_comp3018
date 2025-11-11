@@ -3,7 +3,7 @@ import {
     DocumentData,
     DocumentSnapshot,
 } from "firebase-admin/firestore";
-import { City } from "../models/cityhModel";
+import { City } from "../models/cityModel";
 import {
     createDocument,
     getDocuments,
