@@ -17,23 +17,19 @@ const router: Router = express.Router();
  *       required: true
  *       content:
  *         application/json:
- *           schema:
- *             type: object
- *             required: [uid, claims]
- *             properties:
- *               uid:
- *                 type: string
- *                 description: Firebase user UID
- *               claims:
- *                 type: object
- *                 description: Custom claims object to set (e.g., {"admin": true})
+ *           example:
+ *             uid: ""
+ *             claims:
+ *               role: ""
  *     responses:
  *       '200':
  *         description: Custom claims set successfully
  *         content:
  *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/SuccessResponse'
+ *             example:
+ *               status: "success"
+ *               data: "Custom claims (roles) set for user: user123abc"
+ *               timestamp: "2025-11-11T20:00:00.000Z"
  *       '400':
  *         description: Validation error or bad request
  *       '401':
