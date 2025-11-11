@@ -1,7 +1,7 @@
 import { initializeApp, cert, ServiceAccount } from "firebase-admin/app";
 import { getAuth, Auth } from "firebase-admin/auth";
 import { getFirestore, Firestore } from "firebase-admin/firestore";
-import serviceAccount from "../../sdk.json";
+import serviceAccount from "../../ronen_sdk.json";
 
 initializeApp({
     credential: cert(serviceAccount as ServiceAccount),

@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as continentController from "../controllers/continentController";
-import authenticate from "../middleware/authenticate";
-import isAuthorized from "../middleware/authorize";
+// import authenticate from "../middleware/authenticate";
+// import isAuthorized from "../middleware/authorize";
 
 const router: Router = express.Router();
 
