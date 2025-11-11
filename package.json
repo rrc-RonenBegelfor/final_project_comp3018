@@ -1,0 +1,39 @@
+{
+  "name": "final_project_comp3018",
+  "version": "1.0.0",
+  "description": "",
+  "main": "jest.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rrc-RonenBegelfor/final_project_comp3018.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rrc-RonenBegelfor/final_project_comp3018/issues"
+  },
+  "homepage": "https://github.com/rrc-RonenBegelfor/final_project_comp3018#readme",
+  "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.10.0",
+    "@types/supertest": "^6.0.3",
+    "jest": "^30.2.0",
+    "supertest": "^7.1.4",
+    "ts-jest": "^29.4.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/express": "^5.0.5",
+    "express": "^5.1.0",
+    "firebase-admin": "^13.6.0",
+    "morgan": "^1.10.1"
+  }
+}
