@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as cityController from "../controllers/cityController";
-// import authenticate from "../middleware/authenticate";
-// import isAuthorized from "../middleware/authorize";
+import authenticate from "../middleware/authenticate";
+import isAuthorized from "../middleware/authorize";
 
 const router: Router = express.Router();
 
@@ -37,7 +37,7 @@ const router: Router = express.Router();
  *       '500':
  *         description: Internal server error
  */
-router.post("/", cityController.createCity);
+router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]}), cityController.createCity);
 
 /**
  * @openapi
@@ -82,7 +82,7 @@ router.post("/", cityController.createCity);
  *       '500':
  *         description: Internal server error
  */
-router.get("/", cityController.getCity);
+router.get("/", authenticate, cityController.getCity);
 
 /**
  * @openapi
@@ -134,7 +134,7 @@ router.get("/", cityController.getCity);
  *       '500':
  *         description: Internal server error
  */
-router.put("/:id", cityController.updateCity);
+router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), cityController.updateCity);
 
 /**
  * @openapi
@@ -163,6 +163,6 @@ router.put("/:id", cityController.updateCity);
  *       '500':
  *         description: Internal server error
  */
-router.delete("/:id", cityController.deleteCity);
+router.delete("/:id", authenticate, isAuthorized({hasRole:["manager"]}), cityController.deleteCity);
 
 export default router;

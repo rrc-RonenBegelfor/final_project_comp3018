@@ -1,7 +1,7 @@
 import express, { Router } from "express";
 import * as continentController from "../controllers/continentController";
-// import authenticate from "../middleware/authenticate";
-// import isAuthorized from "../middleware/authorize";
+import authenticate from "../middleware/authenticate";
+import isAuthorized from "../middleware/authorize";
 
 const router: Router = express.Router();
 
@@ -39,7 +39,7 @@ const router: Router = express.Router();
  *       '500':
  *         description: Internal server error
  */
-router.post("/", continentController.createContinent);
+router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]}), continentController.createContinent);
 
 /**
  * @openapi
@@ -61,7 +61,7 @@ router.post("/", continentController.createContinent);
  *       '500':
  *         description: Internal server error
  */
-router.get("/", continentController.getContinent);
+router.get("/", authenticate, continentController.getContinent);
 
 /**
  * @openapi
@@ -110,7 +110,7 @@ router.get("/", continentController.getContinent);
  *       '500':
  *         description: Internal server error
  */
-router.put("/:id", continentController.updateContinent);
+router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), continentController.updateContinent);
 
 /**
  * @openapi
@@ -139,6 +139,6 @@ router.put("/:id", continentController.updateContinent);
  *       '500':
  *         description: Internal server error
  */
-router.delete("/:id", continentController.deleteContinent);
+router.delete("/:id", authenticate, isAuthorized({hasRole:["manager"]}), continentController.deleteContinent);
 
 export default router;
