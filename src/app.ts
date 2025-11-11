@@ -11,6 +11,7 @@ import citiesRoutes from "./api/v1/routes/cityRoutes";
 import userRoutes from "./api/v1/routes/userRoutes";
 import adminRoutes from "./api/v1/routes/adminRoutes";
 import setupSwagger from "./config/swagger";
+import morgan from "morgan";
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(consoleLogger);
 
 // Body parsing middleware
 app.use(express.json());
+app.use(morgan("combined"));
 setupSwagger(app);
 
 // API Routes

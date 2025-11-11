@@ -14,10 +14,10 @@ export const citySchemas: {
 } = {
     create: {
         body: Joi.object<CityRequestModel>({
-            countryId: Joi.string().trim().min(4).optional().messages({
+            countryId: Joi.string().trim().min(2).required().messages({
                 "string.base": "CountryId must be a string",
                 "string.empty": "CountryId cannot be empty",
-                "string.min": "CountryId should have at least 4 characters",
+                "string.min": "CountryId should have at least 2 characters",
             }),
             name: Joi.string().trim().required().min(4).messages({
                 "string.base": "City name must be a type of string",
@@ -54,10 +54,10 @@ export const citySchemas: {
     },
     update: {
         body: Joi.object<CityRequestModel>({
-            countryId: Joi.string().trim().min(4).optional().messages({
+            countryId: Joi.string().trim().min(2).optional().messages({
                 "string.base": "CountryId must be a string",
                 "string.empty": "CountryId cannot be empty",
-                "string.min": "CountryId should have at least 4 characters",
+                "string.min": "CountryId should have at least 2 characters",
             }),
             name: Joi.string().trim().min(4).messages({
                 "string.base": "City name must be a type of string",

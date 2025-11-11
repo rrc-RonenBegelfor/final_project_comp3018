@@ -14,7 +14,7 @@ export const countrySchemas: {
 } = {
     create: {
         body: Joi.object<CountryRequestModel>({
-            continentId: Joi.string().trim().min(2).optional().messages({
+            continentId: Joi.string().trim().min(2).required().messages({
                 "string.base": "ContinentId must be a string",
                 "string.empty": "ContinentId cannot be empty",
                 "string.min": "ContinentId should have at least 2 characters",
@@ -66,7 +66,7 @@ export const countrySchemas: {
     },
     update: {
         body: Joi.object<CountryRequestModel>({
-            continentId: Joi.string().trim().min(2).optional().messages({
+            continentId: Joi.string().trim().min(2).required().messages({
                 "string.base": "ContinentId must be a string",
                 "string.empty": "ContinentId cannot be empty",
                 "string.min": "ContinentId should have at least 2 characters",
