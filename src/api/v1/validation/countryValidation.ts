@@ -100,9 +100,10 @@ export const countrySchemas: {
                             "string.empty": "Event resolution cannot be empty",
                         }),
                     })
-                )
+                ).min(5)
                 .messages({
                     "array.base": "Data must be an array of events",
+                    "array.min": "At least five events or more are required",
                 }),
         })
         .min(1)
