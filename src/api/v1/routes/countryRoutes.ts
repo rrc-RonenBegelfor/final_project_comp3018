@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import countryController from "../controllers/countryController";
+import * as countryController from "../controllers/countryController";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 

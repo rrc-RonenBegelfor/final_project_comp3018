@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import continentController from "../controllers/continentController";
+import * as continentController from "../controllers/continentController";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 

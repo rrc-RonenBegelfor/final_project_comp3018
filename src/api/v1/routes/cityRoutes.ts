@@ -1,5 +1,5 @@
 import express, { Router } from "express";
-import cityController from "../controllers/cityController";
+import * as cityController from "../controllers/cityController";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 
