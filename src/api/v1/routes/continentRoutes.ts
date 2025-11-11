@@ -9,3 +9,5 @@ router.post("/", continentController.createCountry);
 router.get("/", continentController.getCountry);
 router.put("/:id", continentController.updateCountry);
 router.delete("/:id", continentController.deleteCountry);
+
+export default router;
