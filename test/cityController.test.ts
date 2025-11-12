@@ -224,6 +224,7 @@ describe("City Controller", () => {
 
             (cityService.updateCity as jest.Mock).mockReturnValueOnce(mockCity);
 
+            // Act
             await cityController.updateCity(
                 mockReq as Request,
                 mockRes as Response,
