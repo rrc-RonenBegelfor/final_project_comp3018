@@ -50,7 +50,7 @@ describe("City Routes", () => {
             // Arrange
             (auth.verifyIdToken as jest.Mock).mockResolvedValueOnce({ 
                 uid: "u1", 
-                role: "manager",
+                role: "user",
             });
 
             // Act
@@ -85,7 +85,7 @@ describe("City Routes", () => {
             // Arrange
             (auth.verifyIdToken as jest.Mock).mockResolvedValueOnce({
                 uid: "u2",
-                role: "manager"
+                role: "historian"
             });
 
             // Act & Assert
@@ -195,6 +195,25 @@ describe("City Routes", () => {
 
             // Assert
             expect(cityController.updateCity).toHaveBeenCalled();
+        });
+    });
+
+    describe("DELETE /api/v1/cities/:id", () => {
+        it("should call deleteCity controller with correct authentication", async () => {
+            // Arrange
+            (auth.verifyIdToken as jest.Mock).mockResolvedValueOnce({ 
+                uid: "u3", 
+                role: "manager" 
+            });
+
+            // Act
+            await request(app)
+                .delete("/api/v1/cities/testCityId")
+                .set("Authorization", "Bearer testtoken")
+                .expect(HTTP_STATUS.OK);
+
+            // Assert
+            expect(cityController.deleteCity).toHaveBeenCalled();
         });
     });
 });
