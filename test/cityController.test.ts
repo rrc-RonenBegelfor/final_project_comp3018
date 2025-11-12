@@ -93,5 +93,48 @@ describe("City Controller", () => {
                 message: "No cities found for the specified country",
             });
         });
+
+        it("should all cities without a query provided", async () => {
+            // Arrange
+            const mockCities = [{id: "ashjhaskg", name: "test", countryId: "test"}];
+            (cityService.getCity as jest.Mock).mockResolvedValueOnce(mockCities);
+            mockReq.query = {};
+
+            // Act
+            await cityController.getCity(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            // Assert
+            expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
+            expect(mockRes.json).toHaveBeenCalledWith({
+                data: [
+                    {
+                        countryId: "test",
+                        id: "ashjhaskg",
+                        name: "test",
+                    }
+                ],
+                message: "Cities retrieved successfully",
+            });
+        });
+
+        it("should call error when thrown", async () => {
+            // Arrange
+            const mockError = new Error("TestError");
+            (cityService.getCity as jest.Mock).mockRejectedValueOnce(mockError);
+            mockReq.query = {};
+
+            // Act
+            await cityController.getCity(
+                mockReq as Request,
+                mockRes as Response,
+                mockNext
+            );
+
+            expect(mockNext).toHaveBeenCalledWith(mockError);
+        });
     });
 });
