@@ -35,6 +35,7 @@ jest.mock("../src/api/v1/controllers/cityController", () => ({
         if (error) {
             return res.status(HTTP_STATUS.BAD_REQUEST).send({ error: error.message });
         }
+        return res.status(HTTP_STATUS.OK).send();
     }),
     deleteCity: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
 }));
@@ -126,7 +127,7 @@ describe("City Routes", () => {
             expect(cityController.createCity).toHaveBeenCalled();
         });
 
-        it("should call createCity controller as bad request", async () => {
+        it("should call createCity controller as bad request, missing data", async () => {
             // Arrange
             (auth.verifyIdToken as jest.Mock).mockResolvedValueOnce({ 
                 uid: "u3", 
@@ -145,6 +146,55 @@ describe("City Routes", () => {
 
             // Assert
             expect(cityController.createCity).toHaveBeenCalled();
+        });
+    });
+
+    describe("PUT /api/v1/cities/:id", () => {
+        it("should call updateCity controller with valid data and authentication", async () => {
+            // Arrange
+            (auth.verifyIdToken as jest.Mock).mockResolvedValueOnce({ 
+                uid: "u3", 
+                role: "historian" 
+            });
+
+            // Act
+            await request(app)
+                .put("/api/v1/cities/testCityId")
+                .set("Authorization", "Bearer testtoken")
+                .send({
+                    countryId: "CA",
+                    name: "Test City",
+                    date: "2023-10-10",
+                    type: "Natural Disaster",
+                    description: "A test description",
+                    damage: "Test damage",
+                    resolution: "Test resolution"
+                })
+                .expect(HTTP_STATUS.OK);
+
+            // Assert
+            expect(cityController.updateCity).toHaveBeenCalled();
+        });
+
+        it("should call updateCity controller as bad request, missing data", async () => {
+            // Arrange
+            (auth.verifyIdToken as jest.Mock).mockResolvedValueOnce({ 
+                uid: "u3", 
+                role: "historian" 
+            });
+
+            // Act
+            await request(app)
+                .put("/api/v1/cities/testCityId")
+                .set("Authorization", "Bearer testtoken")
+                .send({
+                    countryId: "",
+                    name: "",
+                })
+                .expect(HTTP_STATUS.BAD_REQUEST);
+
+            // Assert
+            expect(cityController.updateCity).toHaveBeenCalled();
         });
     });
 });
