@@ -17,7 +17,16 @@ export const getIp = async (): Promise<string> => {
 export const getLocationData = async (ip: string): Promise<Location> => {
     try {
         const { data } = await axios.get<Location>(`http://api.ipstack.com/${ip}?access_key=${accessKey}`);
-        return data;
+
+        const location: Location = {
+            continent_code: data.continent_code,
+            continent_name: data.continent_name,
+            country_code: data.country_code,
+            country_name: data.country_name,
+            city: data.city,
+        }
+
+        return location;
     } catch (error : unknown) {
         throw error;
     }
