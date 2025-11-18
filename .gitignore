@@ -1,6 +1,7 @@
 node_modules/
 dist/
 ronen_sdk.json
+ronen_ipstack_api_key.json
 
 logs/
 *.log
