@@ -8,8 +8,8 @@ export const getLocation = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const ip = getIp(req);
-        const locationData = await getLocationData(ip);
+        const ip = await getIp();
+        const locationData = await getLocationData( ip);
 
         res.status(HTTP_STATUS.OK).json({
             ip,
