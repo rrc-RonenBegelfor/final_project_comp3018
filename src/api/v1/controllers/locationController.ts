@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import {getIp, getLocationData} from "../services/locationService";
-import { HTTP_STATUS  } from "src/constants/httpConstants";
+import { HTTP_STATUS  } from "../../../constants/httpConstants";
 
 export const getLocation = async (
     req: Request, 

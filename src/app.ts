@@ -10,6 +10,7 @@ import countryRoutes from "./api/v1/routes/countryRoutes";
 import citiesRoutes from "./api/v1/routes/cityRoutes";
 import userRoutes from "./api/v1/routes/userRoutes";
 import adminRoutes from "./api/v1/routes/adminRoutes";
+import locationRoutes from "./api/v1/routes/locationRoutes";
 import setupSwagger from "./config/swagger";
 import morgan from "morgan";
 
@@ -30,6 +31,7 @@ app.use("/api/v1/countries", countryRoutes);
 app.use("/api/v1/cities", citiesRoutes);
 app.use("/api/v1/users", userRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/location", locationRoutes);
 
 // Global error handling middleware (MUST be applied last)
 app.use(errorHandler);
