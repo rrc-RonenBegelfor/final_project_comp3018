@@ -1,0 +1,6 @@
+node_modules/
+dist/
+ronen_sdk.json
+
+logs/
+*.log
