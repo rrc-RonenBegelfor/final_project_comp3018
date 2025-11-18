@@ -11,6 +11,7 @@ import {
     updateDocument,
     deleteDocument,
 } from "../repositories/firestoreRepository";
+import {getIp, getLocationData} from "../services/locationService";
 
 const collection: string = "countries";
 
@@ -142,3 +143,25 @@ export const getCountryForContinent = async (continentId: string): Promise<Count
         throw error;
     }
 }
+
+export const getCountryByIp = async (): Promise<Country[]> => {
+    try{
+        const ip = await getIp();
+        const location = await getLocationData(ip);
+
+        const snapshot: QuerySnapshot = await getDocuments(collection);
+        const countries: Country[] = snapshot.docs.map((doc) => {
+            const data: DocumentData = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+            } as Country;
+        });
+
+        const matchedCountry = countries.filter(c => c.name.toLowerCase() === location.city.toLowerCase());
+
+        return matchedCountry;
+    } catch (error: unknown) {
+        throw error;
+    } 
+};
