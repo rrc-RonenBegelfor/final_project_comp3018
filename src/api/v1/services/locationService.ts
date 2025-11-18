@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Location } from "../models/locationModel";
 import accessKey from "../../../../ronen_ipstack_api_key.json"
 
@@ -16,7 +15,8 @@ export const getIp = async (): Promise<string> => {
 
 export const getLocationData = async (ip: string): Promise<Location> => {
     try {
-        const { data } = await axios.get<Location>(`http://api.ipstack.com/${ip}?access_key=${accessKey}`);
+        const response = await fetch(`http://api.ipstack.com/${ip}?access_key=${accessKey}`);
+        const data: Location = await response.json();
 
         const location: Location = {
             continent_code: data.continent_code,
