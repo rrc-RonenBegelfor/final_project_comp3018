@@ -158,7 +158,7 @@ export const getCountryByIp = async (): Promise<Country[]> => {
             } as Country;
         });
 
-        const matchedCountry = countries.filter(c => c.name.toLowerCase() === location.city.toLowerCase());
+        const matchedCountry = countries.filter(c => c.name.toLowerCase() === location.country_name.toLowerCase());
 
         return matchedCountry;
     } catch (error: unknown) {
