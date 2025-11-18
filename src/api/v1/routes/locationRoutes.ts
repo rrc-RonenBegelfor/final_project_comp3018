@@ -17,13 +17,13 @@ const router: Router = express.Router();
  *         content:
  *           application/json:
  *             example:
- *               message: "Locations retrieved successfully"
- *               data:
- *                 - latitude: "52.5200"
- *                   longitude: "13.4050"
- *                   city: "Berlin"
- *                   country: "Germany"
- *                   continent: "Europe"
+ *               ip: "123.123.123.123"
+ *               locationData:
+ *                 - continent_code: "NA"
+ *                   continent_name: "North America"
+ *                   country_code: "CA"
+ *                   country_name: "Canada"
+ *                   "city": "Winnipeg"
  *       '500':
  *         description: Internal server error
  */
