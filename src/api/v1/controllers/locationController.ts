@@ -19,3 +19,19 @@ export const getLocation = async (
         next(error)
     }
 }
+
+export const getCityBasedOnLocation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+
+};
+
+export const getCountryBasedOnLocation = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    
+}

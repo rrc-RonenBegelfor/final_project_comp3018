@@ -11,6 +11,7 @@ import {
     updateDocument,
     deleteDocument,
 } from "../repositories/firestoreRepository";
+import {getIp, getLocationData} from "../services/locationService";
 
 const collection: string ="cities";
 
@@ -132,3 +133,25 @@ export const getCityForCountry = async (countryId: string): Promise<City[]> => {
         throw error;
     }
 }
+
+export const getCityByIp = async (): Promise<City[]> => {
+    try{
+        const ip = await getIp();
+        const location = await getLocationData(ip);
+
+        const snapshot: QuerySnapshot = await getDocuments(collection);
+        const cities: City[] = snapshot.docs.map((doc) => {
+            const data: DocumentData = doc.data();
+            return {
+                id: doc.id,
+                ...data,
+            } as City;
+        });
+
+        const matchedCity = cities.filter(c => c.name.toLowerCase() === location.city.toLowerCase());
+
+        return matchedCity;
+    } catch (error: unknown) {
+        throw error;
+    } 
+};
