@@ -187,4 +187,6 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), countr
  */
 router.delete("/:id", authenticate, isAuthorized({hasRole:["manager"]}), countryController.deleteCountry);
 
+router.get("/:id", authenticate, countryController.getCountryById);
+
 export default router;

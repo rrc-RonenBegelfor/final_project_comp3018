@@ -191,4 +191,6 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), cityCo
  */
 router.delete("/:id", authenticate, isAuthorized({hasRole:["manager"]}), cityController.deleteCity);
 
+router.get("/:id", authenticate, cityController.getCityById);
+
 export default router;
