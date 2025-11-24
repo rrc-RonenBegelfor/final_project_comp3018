@@ -133,3 +133,22 @@ export const deleteContinent = async (
         next(error);
     }
 };
+
+export const getContinentById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        const continent: Continent | undefined = await continentService.getContinentById(id);
+
+        res.status(HTTP_STATUS.OK).json({
+            message: "Continent fetched",
+            data: continent,
+        });
+} catch (error: unknown) {
+        next(error);
+    }
+}

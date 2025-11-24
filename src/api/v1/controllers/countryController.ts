@@ -150,3 +150,22 @@ export const deleteCountry = async (
         next(error);
     }
 };
+
+export const getCountryById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        const country: Country | undefined = await countryService.getCountryById(id);
+
+        res.status(HTTP_STATUS.OK).json({
+            message: "Country fetched",
+            data: country,
+        });
+} catch (error: unknown) {
+        next(error);
+    }
+}

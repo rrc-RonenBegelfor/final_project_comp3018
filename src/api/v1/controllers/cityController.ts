@@ -157,3 +157,22 @@ export const deleteCity = async (
         next(error);
     }
 };
+
+export const getCityById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const { id } = req.params;
+
+        const city: City | undefined = await cityService.getCityById(id);
+
+        res.status(HTTP_STATUS.OK).json({
+            message: "City fetched",
+            data: city,
+        });
+} catch (error: unknown) {
+        next(error);
+    }
+}
