@@ -1,5 +1,9 @@
 export interface ContinentRequestModel {
     name: string;
     continent_code: string;
-    number: number;
+    number: {
+        human: number;
+        natural: number;
+        human_natural: number;
+    };
 };

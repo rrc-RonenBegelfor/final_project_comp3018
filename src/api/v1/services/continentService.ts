@@ -33,7 +33,11 @@ export const getContinent = async(): Promise<Continent[]> => {
 
 export const createContinent = async (continentData: {
     name: string;
-    number: number;
+    number: {
+        human: number;
+        natural: number;
+        human_natural: number;
+    };
 }): Promise<Continent> => {
     try {
         const newContinent: Partial<Continent> = {

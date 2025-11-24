@@ -31,8 +31,19 @@ export const continentSchemas: {
     },
     update: {
         body: Joi.object<ContinentRequestModel>({
-            number: Joi.number().messages({
-                "number.base": "Event number must be a number",
+            number: Joi.array().items({
+                human: Joi.number().messages({
+                    "string.base": "Event date must be a string",
+                    "string.empty": "Event date cannot be empty",
+                }),
+                natural: Joi.number().messages({
+                    "string.base": "Event type must be a string",
+                    "string.empty": "Event type cannot be empty",
+                }),
+                human_natural: Joi.number().messages({
+                    "string.base": "Event description must be a string",
+                    "string.empty": "Event description cannot be empty",
+                }),
             }),
         })
         .min(1)
