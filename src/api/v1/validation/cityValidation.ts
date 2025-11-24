@@ -87,6 +87,7 @@ export const citySchemas: {
         })
         .min(1)
         .required()
+        .unknown(false)
         .messages({
             "object.min": "At least one attribute must be changed when updating",
             "any.required": "Update body is required",
