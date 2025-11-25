@@ -33,6 +33,7 @@ export const getContinent = async(): Promise<Continent[]> => {
 
 export const createContinent = async (continentData: {
     name: string;
+    continent_code: string;
     number: {
         human: number;
         natural: number;
@@ -40,6 +41,10 @@ export const createContinent = async (continentData: {
     };
 }): Promise<Continent> => {
     try {
+        if (await checkExisting({name: continentData.name})) {
+            throw new Error(`Continent with name ${continentData.name} already exists`);
+        }
+
         const newContinent: Partial<Continent> = {
             ...continentData,
         };
@@ -77,7 +82,7 @@ export const getContinentById = async (id: string): Promise<Continent> => {
 
 export const updateContinent = async (
     id: string,
-    continentData: Pick<Continent, "name" | "number">,
+    continentData: Pick<Continent, "number">,
 ): Promise<Continent> => {
     try {
         const continent: Continent = await getContinentById(id);
@@ -111,4 +116,15 @@ export const deleteContinent = async (id: string): Promise<void> => {
     } catch (error: unknown) {
         throw error;
     }
+};
+
+// Using some to return true of false if matching values from an array.
+const checkExisting = async (
+    continentData: {name: string;}
+) => {
+    const continents = getContinent();
+
+    const exists = (await continents).some(c => c.name.trim().toLowerCase() === continentData.name.trim().toLocaleLowerCase());
+
+    return exists;
 };

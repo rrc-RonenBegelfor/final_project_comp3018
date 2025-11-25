@@ -4,6 +4,7 @@ import * as continentService from "../services/continentService";
 import { Continent } from "../models/continentModel";
 import { continentSchemas } from "../validation/continentValidation";
 import { successResponse } from "../models/responseModel";
+// import * as cityService from "../services/cityService";
 
 /**
  * Retrieves all continents from the database.
@@ -83,9 +84,11 @@ export const updateContinent = async (
     try {
         const { id } = req.params;
 
+        
+
         const {error, value } = continentSchemas.update.body.validate(req.body, { abortEarly: false})
         
-        const { name, number} = value;
+        const {number} = value;
 
         if (error) {
             res.status(HTTP_STATUS.BAD_REQUEST).json({
@@ -97,8 +100,7 @@ export const updateContinent = async (
         }
 
         const updatedContinent: Continent = await continentService.updateContinent(id, {
-            name,
-            number,
+            number
         });
 
         res.status(HTTP_STATUS.OK).json(
