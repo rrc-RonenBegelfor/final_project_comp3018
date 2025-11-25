@@ -33,7 +33,9 @@ Start with cloning the repository into a root directory,
 git clone https://github.com/rrc-RonenBegelfor/final_project_comp3018
 ```
 
-Then, to ensure all dependencies are installed after cloning, run the following
+Open the project on VS code.
+
+Then, to ensure all dependencies are installed after cloning, run the following in the terminal
 
 ```bash
 npm install
@@ -48,6 +50,8 @@ FIREBASE_PRIVATE_KEY=your_private_key
 PORT=3000
 IPSTACK_API_KEY=your_ipstack_api_key
 ```
+
+*More information about `.env` later in the file.*
 
 And now, you should be ready to run on the server:
 
@@ -68,12 +72,14 @@ This section will include examples of how to make request to this API.
 
 Each CRUD operation requires a/n,
 
-- existing user
+- existing users
   - admin, manager, historian, user
 - authentication token
   - depends on the type of user, access differs between users.
 - certain authorization level
   - depends on the type of user, authorization differs between users.
+- appropriate data passed
+  - Ids, Bodys
 
 ### Continents
 
@@ -85,19 +91,19 @@ The collection `continents` is exactly as it sounds. It houses all of the seven 
 
     You can also be more specific and request a continent by its generated unique id.
 
-    - `GET` all continents
+    - `GET` all continents | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/continents/'
         ```
 
-    - `GET` continent by id
+    - `GET` continent by id | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/continents/{id}'
         ```
 
-2. `POST` Continents operation
+2. `POST` Continents operation | Accessible by `manager` or `historian` only.
 
     This operation is used to create a continent.
 
@@ -127,7 +133,7 @@ The collection `continents` is exactly as it sounds. It houses all of the seven 
 
     **Postman does not accept `commas (,)` after the last field.**
 
-3. `PUT` Continents operation
+3. `PUT` Continents operation | Accessible by `historian` only.
 
     This operation is used to update (in this case, push) a continent's number and events values.
 
@@ -141,7 +147,7 @@ The collection `continents` is exactly as it sounds. It houses all of the seven 
 
     There are no fields required but for updating, but to ensure not everyone can just utilize it, only a historian is allowed to call for an update. This can change.
 
-4. `DELETE` Continents operation
+4. `DELETE` Continents operation | Accessible by `manager` only.
 
     This operation is used to delete a continent using an id.
 
@@ -161,25 +167,25 @@ The collection `countries` is a little more complicated. Not only is updating it
 
     Another way to be more specific is requesting a country by quering a parameter of the continent's id.
 
-    - `GET` all countries
+    - `GET` all countries | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/countries/'
         ```
 
-    - `GET` country by id
+    - `GET` country by id | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/countries/{id}'
         ```
 
-    - `GET` country by continentId queried parameter
+    - `GET` country by continentId queried parameter | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/countries?continentId=africa'
         ```
 
-2. `POST` Countries operation
+2. `POST` Countries operation | Accessible by `manager` or `historian` only.
 
     This operation is used to create a country.
 
@@ -227,7 +233,7 @@ The collection `countries` is a little more complicated. Not only is updating it
 
     **Postman does not accept `commas (,)` after the last field.**
 
-3. `PUT` Countries operation
+3. `PUT` Countries operation | Accessible by `historian` only.
 
     This operation is used to update (in this case, push) a continent's number and events values.
 
@@ -241,9 +247,9 @@ The collection `countries` is a little more complicated. Not only is updating it
 
     Once again, an update operation requires that five items are pushed/updated within its use.
 
-4. `DELETE` Countries operation
+4. `DELETE` Countries operation | Accessible by `manager` only.
 
-    This operation is used to delete a continent using an id.
+    This operation is used to delete a country using an id.
 
     ```bash
     postman request DELETE 'http://localhost:3000/api/v1/countries/{id}/'
@@ -259,25 +265,25 @@ The third and final collecftion `cities` has the same attributes as the `countri
 
     You can be more specific and request a city by its unique id or by querying bya country's `countryId`/`country_code`.
 
-    - `GET` all cities
+    - `GET` all cities | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/cities/'
         ```
 
-    - `GET` a city with unique id
+    - `GET` a city with unique id | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/cities/{id}'
         ```
 
-    - `GET` a city with unique id
+    - `GET` a city with unique id | Accessible by everyone as long as you have an authentication Bearer token.
 
         ```bash
         postman request 'http://localhost:3000/api/v1/cities?countryId=CA'
         ```
 
-2. `POST` Cities operation
+2. `POST` Cities operation | Accessible by `manager` or `historian` only.
 
     This operation is used to create a city.
 
@@ -315,7 +321,7 @@ The third and final collecftion `cities` has the same attributes as the `countri
 
     **Postman does not accept `commas (,)` after the last field.**
 
-3. `PUT` Cities operation
+3. `PUT` Cities operation | Accessible by `historian` only.
 
     This operation is used to update a city.
 
@@ -338,6 +344,14 @@ The third and final collecftion `cities` has the same attributes as the `countri
     | description | string | Event description |
     | damage | string | Event severity |
     | resolution | string | Event resolution |
+
+4. `DELETE` Cities operation | Accessible by `manager` only.
+
+    This operation is used to delete a city using an id.
+
+    ```bash
+    postman request DELETE 'http://localhost:3000/api/v1/cities/{id}/'
+    ```
 
 ## Local Documenation
 
