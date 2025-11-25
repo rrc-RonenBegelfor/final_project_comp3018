@@ -42,6 +42,10 @@ export const createCity = async (cityData: {
     resolution: string;
 }): Promise<City> => {
     try {
+        if (await checkExisting({name: cityData.name})) {
+            throw new Error(`Country with name ${cityData.name} already exists`);
+        }
+
         const newCity: Partial<City> = {
             ...cityData,
         };
@@ -154,4 +158,14 @@ export const getCityByIp = async (): Promise<City[]> => {
     } catch (error: unknown) {
         throw error;
     } 
+};
+
+const checkExisting = async (
+    cityData: {name: string;}
+) => {
+    const cities = getCity();
+
+    const exists = (await cities).some(c => c.name.trim().toLowerCase() === cityData.name.trim().toLocaleLowerCase());
+
+    return exists;
 };

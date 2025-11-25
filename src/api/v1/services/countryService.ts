@@ -44,6 +44,10 @@ export const createCountry = async (countryData: {
     }[];
 }): Promise<Country> => {
     try {
+        if (await checkExisting({name: countryData.name})) {
+            throw new Error(`Country with name ${countryData.name} already exists`);
+        }
+
         const newCountry: Partial<Country> = {
             ...countryData,
         };
@@ -164,4 +168,14 @@ export const getCountryByIp = async (): Promise<Country[]> => {
     } catch (error: unknown) {
         throw error;
     } 
+};
+
+const checkExisting = async (
+    countryData: {name: string;}
+) => {
+    const countries = getCountry();
+
+    const exists = (await countries).some(c => c.name.trim().toLowerCase() === countryData.name.trim().toLocaleLowerCase());
+
+    return exists;
 };
