@@ -15,6 +15,11 @@ import {getIp, getLocationData} from "../services/locationService";
 
 const collection: string ="cities";
 
+/**
+ * Uses Firebase logic to retreive all documents in cities collection.
+ * 
+ * @returns documents from cities collection.
+ */
 export const getCity = async(): Promise<City[]> => {
     try {
         const snapshot: QuerySnapshot = await getDocuments(collection);
@@ -32,6 +37,12 @@ export const getCity = async(): Promise<City[]> => {
     }
 };
 
+/**
+ * Used to create a city.
+ * 
+ * @param cityData Body data and fields you are trying to create a city with.
+ * @returns The newly created city's id and it's contents.
+ */
 export const createCity = async (cityData: {
     countryId: string;
     name: string;
@@ -58,6 +69,12 @@ export const createCity = async (cityData: {
     }
 };
 
+/**
+ * Use to get a single city by it's unique id.
+ * 
+ * @param id the city's unique id
+ * @returns the city you fetched using it's unique id.
+ */
 export const getCityById = async (id: string): Promise<City> => {
     try {
         const doc: DocumentSnapshot | null = await getDocumentById(
@@ -81,6 +98,13 @@ export const getCityById = async (id: string): Promise<City> => {
     }
 };
 
+/**
+ * Updates the city.
+ * 
+ * @param id targetted to update city's unique id.
+ * @param cityData the fields you want to update in the city.
+ * @returns Updated city success message.
+ */
 export const updateCity = async (
     id: string,
     cityData: Pick<City, "countryId" | "name" | "date" | "type" | "description" | "damage" | "resolution">,
@@ -105,6 +129,11 @@ export const updateCity = async (
     }
 };
 
+/**
+ * Deletes the city.
+ * 
+ * @param id the unique id of the deleted city.
+ */
 export const deleteCity = async (id: string): Promise<void> => {
     try {
         const city: City = await getCityById(id);
@@ -119,6 +148,12 @@ export const deleteCity = async (id: string): Promise<void> => {
     }
 };
 
+/**
+ * Returns city/ies based on country id.
+ * 
+ * @param countryId foreign key from countries to compare.
+ * @returns filtered cities.
+ */
 export const getCityForCountry = async (countryId: string): Promise<City[]> => {
     try {
         const snapshot: QuerySnapshot = await getDocuments(collection);
@@ -138,6 +173,11 @@ export const getCityForCountry = async (countryId: string): Promise<City[]> => {
     }
 }
 
+/**
+ * Used to fetch for user's IP, get their location using geocoding, and return a history fact about ther city if it exists.
+ * 
+ * @returns city the user is found in
+ */
 export const getCityByIp = async (): Promise<City[]> => {
     try{
         const ip = await getIp();
@@ -160,6 +200,14 @@ export const getCityByIp = async (): Promise<City[]> => {
     } 
 };
 
+/**
+ * Returns true of false if a city exists already.
+ * 
+ * Used to validate so that you cannot input the same city twice.
+ * 
+ * @param cityData name of the city.
+ * @returns {boolean} - true or false depending on the existence of the city name.
+ */
 const checkExisting = async (
     cityData: {name: string;}
 ) => {

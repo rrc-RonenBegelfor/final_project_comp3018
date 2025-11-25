@@ -15,6 +15,11 @@ import {getIp, getLocationData} from "../services/locationService";
 
 const collection: string = "countries";
 
+/**
+ * Uses Firebase logic to retreive all documents in countries collection.
+ * 
+ * @returns documents from countries collection.
+ */
 export const getCountry = async(): Promise<Country[]> => {
     try {
         const snapshot: QuerySnapshot = await getDocuments(collection);
@@ -32,6 +37,12 @@ export const getCountry = async(): Promise<Country[]> => {
     }
 };
 
+/**
+ * Used to create a country.
+ * 
+ * @param countryData Body data and fields you are trying to create a country with.
+ * @returns The newly created country's id and it's contents.
+ */
 export const createCountry = async (countryData: {
     continentId: string;
     name: string;
@@ -60,6 +71,12 @@ export const createCountry = async (countryData: {
     }
 };
 
+/**
+ * Use to get a single country by it's unique id.
+ * 
+ * @param id the country's unique id
+ * @returns the country you fetched using it's unique id.
+ */
 export const getCountryById = async (id: string): Promise<Country> => {
     try {
         const doc: DocumentSnapshot | null = await getDocumentById(
@@ -83,6 +100,13 @@ export const getCountryById = async (id: string): Promise<Country> => {
     }
 };
 
+/**
+ * Updates the country.
+ * 
+ * @param id targetted to update country's unique id.
+ * @param countryData the fields you want to update in the country.
+ * @returns Updated country success message.
+ */
 export const updateCountry = async (
     id: string,
     countryData: Pick<Country, "continentId" | "name" | "data">,
@@ -115,6 +139,11 @@ export const updateCountry = async (
     }
 };
 
+/**
+ * Deletes the country.
+ * 
+ * @param id the unique id of the deleted country.
+ */
 export const deleteCountry = async (id: string): Promise<void> => {
     try {
         const country: Country = await getCountryById(id);
@@ -129,6 +158,12 @@ export const deleteCountry = async (id: string): Promise<void> => {
     }
 };
 
+/**
+ * Returns country/ies based on continent id.
+ * 
+ * @param continentId foreign key from continents to compare.
+ * @returns filtered countries.
+ */
 export const getCountryForContinent = async (continentId: string): Promise<Country[]> => {
     try {
         const snapshot: QuerySnapshot = await getDocuments(collection);
@@ -148,6 +183,11 @@ export const getCountryForContinent = async (continentId: string): Promise<Count
     }
 }
 
+/**
+ * Used to fetch for user's IP, get their location using geocoding, and return a history fact about ther country if it exists.
+ * 
+ * @returns country the user is found in
+ */
 export const getCountryByIp = async (): Promise<Country[]> => {
     try{
         const ip = await getIp();
@@ -170,6 +210,14 @@ export const getCountryByIp = async (): Promise<Country[]> => {
     } 
 };
 
+/**
+ * Returns true of false if a country exists already.
+ * 
+ * Used to validate so that you cannot input the same country twice.
+ * 
+ * @param countryData name of the country.
+ * @returns {boolean} - true or false depending on the existence of the country name.
+ */
 const checkExisting = async (
     countryData: {name: string;}
 ) => {

@@ -1,5 +1,10 @@
 import { Location } from "../models/locationModel";
 
+/**
+ * Get the IP of the user using a public API.
+ * 
+ * @returns IP of the user
+ */
 export const getIp = async (): Promise<string> => {
     try {
         const response = await fetch("https://api.ipify.org?format=json");
@@ -12,6 +17,14 @@ export const getIp = async (): Promise<string> => {
     }
 };
 
+/**
+ * Gets the location details that are required for comparison using the IP of the user.
+ * 
+ * This is where IPSTACK is being utilized.
+ * 
+ * @param ip IP of the user
+ * @returns location data based on model
+ */
 export const getLocationData = async (ip: string): Promise<Location> => {
     try {
         const response = await fetch(`http://api.ipstack.com/${ip}?access_key=${process.env.IPSTACK_API_KEY}`);
