@@ -1,6 +1,101 @@
 import Joi, { ObjectSchema } from "joi";
 import { CityRequestModel } from "../models/cityRequestModel";
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     CityRequest:
+ *       type: object
+ *       required:
+ *         - countryId
+ *         - name
+ *         - date
+ *         - type
+ *         - description
+ *         - damage
+ *         - resolution
+ *       properties:
+ *         countryId:
+ *           type: string
+ *           description: ID of the country the city belongs to
+ *           example: "UK"
+ *         name:
+ *           type: string
+ *           minLength: 4
+ *           example: "London"
+ *         date:
+ *           type: string
+ *           format: date
+ *           example: "2023-10-01"
+ *         type:
+ *           type: string
+ *           example: "natural"
+ *         description:
+ *           type: string
+ *           example: "Severe flooding in the downtown area"
+ *         damage:
+ *           type: string
+ *           example: "high"
+ *         resolution:
+ *           type: string
+ *           example: "Evacuation and relief efforts underway"
+ *
+ *     CityUpdateRequest:
+ *       type: object
+ *       description: Must include at least one updatable field.
+ *       properties:
+ *         countryId:
+ *           type: string
+ *           minLength: 2
+ *         name:
+ *           type: string
+ *           minLength: 4
+ *         date:
+ *           type: string
+ *           format: date
+ *         type:
+ *           type: string
+ *         description:
+ *           type: string
+ *         damage:
+ *           type: string
+ *         resolution:
+ *           type: string
+ *
+ *     City:
+ *       allOf:
+ *         - $ref: '#/components/schemas/CityRequest'
+ *         - type: object
+ *           properties:
+ *             id:
+ *               type: string
+ *               example: "DaRVXicS82x7alS1yPk8"
+ *
+ *     ValidationError:
+ *       type: object
+ *       required:
+ *         - error
+ *         - message
+ *       properties:
+ *         error:
+ *           type: string
+ *           example: "VALIDATION_ERROR"
+ *         message:
+ *           type: string
+ *           example: "Validation failed"
+ *         details:
+ *           type: array
+ *           items:
+ *             type: object
+ *             properties:
+ *               field:
+ *                 type: string
+ *                 example: "name"
+ *               issue:
+ *                 type: string
+ *                 example: "City name should have a minimum length of 4"
+ */
 export const citySchemas: {
     create: {
         body: ObjectSchema<CityRequestModel>;

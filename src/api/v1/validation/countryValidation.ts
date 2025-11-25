@@ -1,6 +1,113 @@
 import Joi, { ObjectSchema } from "joi";
 import { CountryRequestModel } from "../models/countryRequestModel";
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     CountryEvent:
+ *       type: object
+ *       required:
+ *         - date
+ *         - type
+ *         - description
+ *         - damage
+ *         - resolution
+ *       properties:
+ *         date:
+ *           type: string
+ *           format: date-time
+ *           description: ISO date of the event
+ *           example: "2024-05-20T00:00:00.000Z"
+ *         type:
+ *           type: string
+ *           description: Type of event (e.g., human-made, natural, etc.)
+ *           example: "natural"
+ *         description:
+ *           type: string
+ *           description: Description of the event
+ *           example: "Severe flooding affected the northern region."
+ *         damage:
+ *           type: string
+ *           description: Severity of damage caused by the event
+ *           example: "high"
+ *         resolution:
+ *           type: string
+ *           description: Actions taken to resolve or mitigate the event
+ *           example: "Evacuations completed and repairs initiated."
+ *
+ *     CountryRequest:
+ *       type: object
+ *       required:
+ *         - continentId
+ *         - name
+ *         - data
+ *       properties:
+ *         continentId:
+ *           type: string
+ *           minLength: 2
+ *           description: ID of the continent the country belongs to
+ *           example: "continent_01abc"
+ *         name:
+ *           type: string
+ *           minLength: 3
+ *           description: Name of the country
+ *           example: "Japan"
+ *         data:
+ *           type: array
+ *           minItems: 5
+ *           description: List of major events associated with the country
+ *           items:
+ *             $ref: '#/components/schemas/CountryEvent'
+ *
+ *     Country:
+ *       allOf:
+ *         - $ref: '#/components/schemas/CountryRequest'
+ *         - type: object
+ *           properties:
+ *             id:
+ *               type: string
+ *               description: Unique identifier for the country
+ *               example: "country_456xyz"
+ *           required:
+ *             - id
+ *
+ *     CountryQuery:
+ *       type: object
+ *       properties:
+ *         continentId:
+ *           type: string
+ *           minLength: 2
+ *           description: Optional filter by continent ID
+ *           example: "continent_01abc"
+ *
+ *     ValidationError:
+ *       type: object
+ *       required:
+ *         - error
+ *         - message
+ *       properties:
+ *         error:
+ *           type: string
+ *           description: Error type or code
+ *           example: "VALIDATION_ERROR"
+ *         message:
+ *           type: string
+ *           description: Human-readable error message
+ *           example: "Validation failed"
+ *         details:
+ *           type: array
+ *           description: Detailed validation errors
+ *           items:
+ *             type: object
+ *             properties:
+ *               field:
+ *                 type: string
+ *                 example: "name"
+ *               issue:
+ *                 type: string
+ *                 example: "Country name should have a minimum length of 3"
+ */
 export const countrySchemas: {
     create: {
         body: ObjectSchema<CountryRequestModel>;
