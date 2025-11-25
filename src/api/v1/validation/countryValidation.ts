@@ -19,12 +19,12 @@ export const countrySchemas: {
                 "string.empty": "ContinentId cannot be empty",
                 "string.min": "ContinentId should have at least 2 characters",
             }),
-            country_code: Joi.string().trim().min(2).max(2).required().messages({
-                "string.base": "Country code must be a string",
-                "string.empty": "Country code cannot be empty",
-                "string.min": "Country code should have a minimum length of 2",
-                "string.max": "Country code should have a maximum length of 2",
-            }),
+            // country_code: Joi.string().trim().min(2).max(2).required().messages({
+            //     "string.base": "Country code must be a string",
+            //     "string.empty": "Country code cannot be empty",
+            //     "string.min": "Country code should have a minimum length of 2",
+            //     "string.max": "Country code should have a maximum length of 2",
+            // }),
             name: Joi.string().trim().required().min(3).messages({
                 "string.base": "Country name must be a type of string",
                 "string.empty": "Country name cannot be empty",

@@ -84,24 +84,7 @@ export const updateContinent = async (
     try {
         const { id } = req.params;
 
-        
-
-        const {error, value } = continentSchemas.update.body.validate(req.body, { abortEarly: false})
-        
-        const {number} = value;
-
-        if (error) {
-            res.status(HTTP_STATUS.BAD_REQUEST).json({
-            message: "Validation failed",
-            details: error.details.map(d => d.message),
-            });
-            
-            return;
-        }
-
-        const updatedContinent: Continent = await continentService.updateContinent(id, {
-            number
-        });
+        const updatedContinent = await continentService.updateContinent(id);
 
         res.status(HTTP_STATUS.OK).json(
             successResponse(updatedContinent, "Continent successfully updated"),

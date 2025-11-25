@@ -11,6 +11,7 @@ import {
     updateDocument,
     deleteDocument,
 } from "../repositories/firestoreRepository";
+import { getCountry } from "../services/countryService";
 
 const collection: string ="continents";
 
@@ -82,7 +83,6 @@ export const getContinentById = async (id: string): Promise<Continent> => {
 
 export const updateContinent = async (
     id: string,
-    continentData: Pick<Continent, "number">,
 ): Promise<Continent> => {
     try {
         const continent: Continent = await getContinentById(id);
@@ -91,9 +91,33 @@ export const updateContinent = async (
             throw new Error(`Continent with ${id} not found`);
         }
 
+        const countries = await getCountry();
+
+        const countriesInContinent = countries.filter(c => c.continentId === continent.continent_code);
+
+        const numbers = {
+            human: 0,
+            natural: 0,
+            human_natural: 0,
+        }
+
+        countriesInContinent.forEach(country => {
+            country.data.forEach(event => {
+                const type = event.type.trim().toLowerCase();
+                
+                if (type === "human") {
+                    numbers.human++;
+                } else if (type === "natural") {
+                    numbers.natural++;
+                } else if (type === "human/natural" || type === "natural/human") {
+                    numbers.human_natural++;
+                }
+            })
+        })
+
         const updateContinent: Continent = {
             ...continent,
-            ...continentData,
+            number: numbers,
         };
 
         await updateDocument<Continent>(collection, id, updateContinent);
