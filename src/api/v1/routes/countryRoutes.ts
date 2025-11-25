@@ -8,48 +8,6 @@ const router: Router = express.Router();
 /**
  * @openapi
  * /countries:
- *   post:
- *     summary: Create a new country
- *     security:
- *       - bearerAuth: []
- *     description: Requires authentication and either 'manager' or 'historian' role.
- *     tags: [Countries]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           example:
- *             continentId: ""
- *             name: ""
- *             data:
- *               - date: ""
- *                 type: ""
- *                 description: ""
- *                 damage: ""
- *                 resolution: ""
- *     responses:
- *       '201':
- *         description: Country created successfully
- *         content:
- *           application/json:
- *             example:
- *               status: "success"
- *               data: "Country Created"
- *               timestamp: "2004-12-31T12:00:00Z"
- *       '400':
- *         description: Validation failed
- *       '401':
- *         description: Unauthorized - missing or invalid authentication token
- *       '403':
- *         description: Forbidden - insufficient permissions
- *       '500':
- *         description: Internal server error
- */
-router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]}), countryController.createCountry);
-
-/**
- * @openapi
- * /countries:
  *   get:
  *     summary: Retrieve countries
  *     security:
@@ -89,6 +47,89 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  *         description: Internal server error
  */
 router.get("/", authenticate, countryController.getCountry);
+
+/**
+ * @openapi
+ * /countries/{id}:
+ *   get:
+ *     summary: Get a country by ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Retrieves a country using its unique identifier. Requires authentication.
+ *     tags: [Countries]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The country identifier
+ *     responses:
+ *       '200':
+ *         description: Country fetched successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Country fetched"
+ *               data:
+ *                 id: "usa123"
+ *                 name: "United States"
+ *                 continentId: "north-america-1"
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '404':
+ *         description: Country not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Country with ID usa123 not found"
+ *       '500':
+ *         description: Internal server error
+ */
+
+router.get("/:id", authenticate, countryController.getCountryById);
+
+/**
+ * @openapi
+ * /countries:
+ *   post:
+ *     summary: Create a new country
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and either 'manager' or 'historian' role.
+ *     tags: [Countries]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             continentId: ""
+ *             name: ""
+ *             data:
+ *               - date: ""
+ *                 type: ""
+ *                 description: ""
+ *                 damage: ""
+ *                 resolution: ""
+ *     responses:
+ *       '201':
+ *         description: Country created successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "success"
+ *               data: "Country Created"
+ *               timestamp: "2004-12-31T12:00:00Z"
+ *       '400':
+ *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions
+ *       '500':
+ *         description: Internal server error
+ */
+router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]}), countryController.createCountry);
 
 /**
  * @openapi
@@ -186,7 +227,5 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), countr
  *         description: Internal server error
  */
 router.delete("/:id", authenticate, isAuthorized({hasRole:["manager"]}), countryController.deleteCountry);
-
-router.get("/:id", authenticate, countryController.getCountryById);
 
 export default router;

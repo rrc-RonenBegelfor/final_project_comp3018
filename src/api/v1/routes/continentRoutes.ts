@@ -8,6 +8,72 @@ const router: Router = express.Router();
 /**
  * @openapi
  * /continents:
+ *   get:
+ *     summary: Retrieve continents
+ *     tags: [Continents]
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication.
+ *     responses:
+ *       '200':
+ *         description: Continents retrieved successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Continents retrieved successfully"
+ *               data:
+ *                 - id: "DaRVXicS82x7alS1yPk8"
+ *                   name: "Test"
+ *                   number: 123
+ *       '401':
+ *         description: Unauthorized
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/", authenticate, continentController.getContinent);
+
+/**
+ * @openapi
+ * /continents/{id}:
+ *   get:
+ *     summary: Get a continent by ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Retrieves a continent using its unique identifier. Requires authentication.
+ *     tags: [Continents]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The continent identifier
+ *     responses:
+ *       '200':
+ *         description: Continent fetched successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Continent fetched"
+ *               data:
+ *                 id: "africa123"
+ *                 name: "Africa"
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '404':
+ *         description: Continent not found
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: "Continent with ID africa123 not found"
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/:id", authenticate, continentController.getContinentById);
+
+/**
+ * @openapi
+ * /continents:
  *   post:
  *     summary: Create a new continent
  *     tags: [Continents]
@@ -48,32 +114,6 @@ const router: Router = express.Router();
  */
 router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]}), continentController.createContinent);
 
-/**
- * @openapi
- * /continents:
- *   get:
- *     summary: Retrieve continents
- *     tags: [Continents]
- *     security:
- *       - bearerAuth: []
- *     description: Requires authentication.
- *     responses:
- *       '200':
- *         description: Continents retrieved successfully
- *         content:
- *           application/json:
- *             example:
- *               message: "Continents retrieved successfully"
- *               data:
- *                 - id: "DaRVXicS82x7alS1yPk8"
- *                   name: "Test"
- *                   number: 123
- *       '401':
- *         description: Unauthorized
- *       '500':
- *         description: Internal server error
- */
-router.get("/", authenticate, continentController.getContinent);
 
 /**
  * @openapi
@@ -167,6 +207,5 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), contin
  */
 router.delete("/:id", authenticate, isAuthorized({hasRole:["manager"]}), continentController.deleteContinent);
 
-router.get("/:id", authenticate, continentController.getContinentById);
 
 export default router;

@@ -31,6 +31,35 @@ router.get("/", authenticate, isAuthorized({ hasRole: ["admin"] }), locationCont
 
 /**
  * @openapi
+ * /location/country:
+ *   get:
+ *     summary: Retrieve country based on current location
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication. Returns country information based on geographic coordinates.
+ *     tags: [Locations]
+ *     responses:
+ *       '200':
+ *         description: Country information retrieved successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "success"
+ *               data:
+ *                 - id: "example"
+ *               message: "Country fetched successfully"
+ *               timestamp: "example timestamp"
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '404':
+ *         description: Country not found for the provided location
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/country", authenticate, locationController.getCountryBasedOnLocation);
+
+/**
+ * @openapi
  * /location/city:
  *   get:
  *     summary: Retrieve city based on current location
@@ -64,34 +93,5 @@ router.get("/", authenticate, isAuthorized({ hasRole: ["admin"] }), locationCont
  *         description: Internal server error
  */
 router.get("/city", authenticate, locationController.getCityBasedOnLocation);
-
-/**
- * @openapi
- * /location/country:
- *   get:
- *     summary: Retrieve country based on current location
- *     security:
- *       - bearerAuth: []
- *     description: Requires authentication. Returns country information based on geographic coordinates.
- *     tags: [Locations]
- *     responses:
- *       '200':
- *         description: Country information retrieved successfully
- *         content:
- *           application/json:
- *             example:
- *               status: "success"
- *               data:
- *                 - id: "example"
- *               message: "Country fetched successfully"
- *               timestamp: "example timestamp"
- *       '401':
- *         description: Unauthorized - missing or invalid authentication token
- *       '404':
- *         description: Country not found for the provided location
- *       '500':
- *         description: Internal server error
- */
-router.get("/country", authenticate, locationController.getCountryBasedOnLocation);
 
 export default router;

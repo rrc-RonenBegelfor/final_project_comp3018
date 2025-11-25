@@ -8,47 +8,6 @@ const router: Router = express.Router();
 /**
  * @openapi
  * /cities:
- *   post:
- *     summary: Create a new city
- *     security:
- *       - bearerAuth: []
- *     description: Requires authentication and either 'manager' or 'historian' role.
- *     tags: [Cities]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           example:
- *             countryId: ""
- *             name: ""
- *             date: ""
- *             type: ""
- *             description: ""
- *             damage: ""
- *             resolution: ""
- *     responses:
- *       '201':
- *         description: City created successfully
- *         content:
- *           application/json:
- *             example:
- *               status: "success"
- *               data: "City Created"
- *               timestamp: "2004-12-31T12:00:00Z"
- *       '400':
- *         description: Validation failed
- *       '401':
- *         description: Unauthorized - missing or invalid authentication token
- *       '403':
- *         description: Forbidden - insufficient permissions
- *       '500':
- *         description: Internal server error
- */
-router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]}), cityController.createCity);
-
-/**
- * @openapi
- * /cities:
  *   get:
  *     summary: Retrieve cities
  *     security:
@@ -95,6 +54,85 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  *         description: Internal server error
  */
 router.get("/", authenticate, cityController.getCity);
+
+/**
+ * @openapi
+ * /cities/{id}:
+ *   get:
+ *     summary: Get a city by ID
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication.
+ *     tags: [Cities]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The city identifier
+ *     responses:
+ *       '200':
+ *         description: City retrieved successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "success"
+ *               data:
+ *                 id: "123"
+ *                 name: "New York"
+ *                 country: "USA"
+ *                 population: 8400000
+ *               timestamp: "2025-11-11T19:59:37.525Z"
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '404':
+ *         description: City not found
+ *       '500':
+ *         description: Internal server error
+ */
+router.get("/:id", authenticate, cityController.getCityById);
+
+/**
+ * @openapi
+ * /cities:
+ *   post:
+ *     summary: Create a new city
+ *     security:
+ *       - bearerAuth: []
+ *     description: Requires authentication and either 'manager' or 'historian' role.
+ *     tags: [Cities]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           example:
+ *             countryId: ""
+ *             name: ""
+ *             date: ""
+ *             type: ""
+ *             description: ""
+ *             damage: ""
+ *             resolution: ""
+ *     responses:
+ *       '201':
+ *         description: City created successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               status: "success"
+ *               data: "City Created"
+ *               timestamp: "2004-12-31T12:00:00Z"
+ *       '400':
+ *         description: Validation failed
+ *       '401':
+ *         description: Unauthorized - missing or invalid authentication token
+ *       '403':
+ *         description: Forbidden - insufficient permissions
+ *       '500':
+ *         description: Internal server error
+ */
+router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]}), cityController.createCity);
 
 /**
  * @openapi
@@ -190,7 +228,5 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), cityCo
  *         description: Internal server error
  */
 router.delete("/:id", authenticate, isAuthorized({hasRole:["manager"]}), cityController.deleteCity);
-
-router.get("/:id", authenticate, cityController.getCityById);
 
 export default router;
