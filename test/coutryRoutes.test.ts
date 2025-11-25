@@ -38,6 +38,7 @@ jest.mock("../src/api/v1/controllers/countryController", () => ({
         return res.status(HTTP_STATUS.OK).send();
     }),
     deleteCountry: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
+    getCountryById: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
 }));
 
 describe("Country Routes", () => {
@@ -193,7 +194,6 @@ describe("Country Routes", () => {
                 .put("/api/v1/countries/testCountryId")
                 .set("Authorization", "Bearer testtoken")
                 .send({
-                    continentId: "Asia",
                     name: "Test Country",
                     data:[{ 
                         date: "2023-10-10",

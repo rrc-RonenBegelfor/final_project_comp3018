@@ -5,9 +5,6 @@ export const continentSchemas: {
     create: {
         body: ObjectSchema<ContinentRequestModel>;
     };
-    update: {
-        body: ObjectSchema<ContinentRequestModel>;
-    };
 } = {
     create: {
         body: Joi.object<ContinentRequestModel>({
@@ -28,30 +25,5 @@ export const continentSchemas: {
         .max(2)
         .min(2)
         .unknown(false)
-    },
-    update: {
-        body: Joi.object<ContinentRequestModel>({
-            number: Joi.array().items({
-                human: Joi.number().messages({
-                    "string.base": "Event date must be a string",
-                    "string.empty": "Event date cannot be empty",
-                }),
-                natural: Joi.number().messages({
-                    "string.base": "Event type must be a string",
-                    "string.empty": "Event type cannot be empty",
-                }),
-                human_natural: Joi.number().messages({
-                    "string.base": "Event description must be a string",
-                    "string.empty": "Event description cannot be empty",
-                }),
-            }),
-        })
-        .min(1)
-        .required()
-        .unknown(false)
-        .messages({
-            "object.min": "At least one attribute must be changed when updating",
-            "any.required": "Update body is required",
-        }),
     },
 };

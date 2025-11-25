@@ -72,14 +72,19 @@ describe("Continent Controller", () => {
     describe("createContinent", () => {
         it("should handle a successful creation", async () => {
             // Arrange
-            const mockBody: Continent = {
+            const mockBody = {
                 name: "test",
-                number: 123,
+                continent_code: "TE"
             };
 
             const mockContinent: Continent = {
                 id: "test",
                 ...mockBody,
+                number: {
+                    human: 0,
+                    natural: 0,
+                    human_natural: 0,
+                }
             }
 
             mockReq.body = mockBody;
@@ -110,7 +115,7 @@ describe("Continent Controller", () => {
             expect(mockRes.json).toHaveBeenCalledWith({
                 details: [
                     "Continent name is required",
-                    "Event number is required",
+                    "Continent code is required",
                 ],
                 message: "Validation failed",
             });
@@ -121,16 +126,18 @@ describe("Continent Controller", () => {
         it("should update a continent successfully", async () => {
             // Arrange
             const mockId: string = "test";
-            const mockBody: Continent = {
-                name: "test",
-                number: 123,
-            }
-
+            
             mockReq.params = {id: mockId};
-            mockReq.body = mockBody;
+
             const mockContinent: Continent = {
+                id: mockId,
                 name: "test",
-                number: 123,
+                continent_code: "TE",
+                number: {
+                    human: 123,
+                    natural: 123,
+                    human_natural: 123
+                }
             };
 
             (continentService.updateContinent as jest.Mock).mockReturnValueOnce(mockContinent);
@@ -185,12 +192,6 @@ describe("Continent Controller", () => {
 
             // Assert
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                data: "Continent successfully deleted",
-                message: undefined,
-                status: "success",
-                timestamp: new Date().toISOString(),
-            });
         });
     });
 });

@@ -24,14 +24,9 @@ jest.mock("../src/api/v1/controllers/continentController", () => ({
         }
         return res.status(HTTP_STATUS.OK).send();
     }),
-    updateContinent: jest.fn((req, res) => { 
-        const { error } = continentSchemas.update.body.validate(req.body);
-        if (error) {
-            return res.status(HTTP_STATUS.BAD_REQUEST).send({ error: error.message });
-        }
-        return res.status(HTTP_STATUS.OK).send();
-    }),
+    updateContinent: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
     deleteContinent: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
+    getContinentById: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
 }));
 
 describe("Continent Routes", () => {
@@ -89,7 +84,7 @@ describe("Continent Routes", () => {
                 .set("Authorization", "Bearer testtoken")
                 .send({
                     name: "Test Continent",
-                    number: 123,
+                    continent_code: "TE",
                 })
                 .expect(HTTP_STATUS.OK);
 
@@ -131,32 +126,8 @@ describe("Continent Routes", () => {
             await request(app)
                 .put("/api/v1/continents/testContinentId")
                 .set("Authorization", "Bearer testtoken")
-                .send({
-                    name: "Test Continent",
-                    number: 123,
-                })
+                .send({})
                 .expect(HTTP_STATUS.OK);
-
-            // Assert
-            expect(continentController.updateContinent).toHaveBeenCalled();
-        });
-
-        it("should call updateContinent controller as bad request, missing data", async () => {
-            // Arrange
-            (auth.verifyIdToken as jest.Mock).mockResolvedValueOnce({ 
-                uid: "u3", 
-                role: "historian" 
-            });
-
-            // Act
-            await request(app)
-                .put("/api/v1/continents/testContinentId")
-                .set("Authorization", "Bearer testtoken")
-                .send({
-                    name: "",
-                    number: "",
-                })
-                .expect(HTTP_STATUS.BAD_REQUEST);
 
             // Assert
             expect(continentController.updateContinent).toHaveBeenCalled();

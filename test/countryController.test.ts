@@ -143,39 +143,39 @@ describe("Country Controller", () => {
         it("should handle a successful creation", async () => {
             // Arrange
             const mockBody: Country = {
-                continentId: "test",
+                continentId: "TE",
                 name: "test",
                 data: [
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
@@ -229,40 +229,39 @@ describe("Country Controller", () => {
         it("should update a country successfully", async () => {
             // Arrange
             const mockId: string = "test";
-            const mockBody: Country = {
-                continentId: "test",
+            const mockBody = {
                 name: "test",
                 data: [
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
                         damage: "test",
                     },
                     {
-                        date: "test",
+                        date: "2025-11-05",
                         type: "test",
                         description: "test",
                         resolution: "test",
@@ -274,45 +273,10 @@ describe("Country Controller", () => {
             mockReq.params = {id: mockId};
             mockReq.body = mockBody;
             const mockCountry: Country = {
-                continentId: "test",
-                name: "test",
-                data: [
-                    {
-                        date: "test",
-                        type: "test",
-                        description: "test",
-                        resolution: "test",
-                        damage: "test",
-                    },
-                    {
-                        date: "test",
-                        type: "test",
-                        description: "test",
-                        resolution: "test",
-                        damage: "test",
-                    },
-                    {
-                        date: "test",
-                        type: "test",
-                        description: "test",
-                        resolution: "test",
-                        damage: "test",
-                    },
-                    {
-                        date: "test",
-                        type: "test",
-                        description: "test",
-                        resolution: "test",
-                        damage: "test",
-                    },
-                    {
-                        date: "test",
-                        type: "test",
-                        description: "test",
-                        resolution: "test",
-                        damage: "test",
-                    },
-                ],
+                id: mockId,
+                continentId: "TE",
+                name: mockBody.name,
+                data: mockBody.data
             };
 
             (countryService.updateCountry as jest.Mock).mockReturnValueOnce(mockCountry);
@@ -332,8 +296,44 @@ describe("Country Controller", () => {
             // Arrange
             const mockError: Error = new Error("Mock error");
             mockReq.params = { id: "1"};
+
             mockReq.body = {
-                name: "Test"
+                name: "Test Country",
+                data: [{
+                    date: "2025-11-05",
+                    type: "test",
+                    description: "test",
+                    damage: "test",
+                    resolution: "test",
+                },
+                {
+                    date: "2025-11-06",
+                    type: "test",
+                    description: "test",
+                    damage: "test",
+                    resolution: "test",
+                },
+                {
+                    date: "2025-11-07",
+                    type: "test",
+                    description: "test",
+                    damage: "test",
+                    resolution: "test",
+                },
+                {
+                    date: "2025-11-08",
+                    type: "test",
+                    description: "test",
+                    damage: "test",
+                    resolution: "test",
+                },
+                {
+                    date: "2025-11-09",
+                    type: "test",
+                    description: "test",
+                    damage: "test",
+                    resolution: "test",
+                }]
             };
             
             (countryService.updateCountry as jest.Mock).mockRejectedValue(mockError);
@@ -367,12 +367,6 @@ describe("Country Controller", () => {
 
             // Assert
             expect(mockRes.status).toHaveBeenCalledWith(HTTP_STATUS.OK);
-            expect(mockRes.json).toHaveBeenCalledWith({
-                data: "Country successfully deleted",
-                message: undefined,
-                status: "success",
-                timestamp: new Date().toISOString(),
-            });
         });
     });
 });

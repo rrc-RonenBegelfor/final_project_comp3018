@@ -38,6 +38,7 @@ jest.mock("../src/api/v1/controllers/cityController", () => ({
         return res.status(HTTP_STATUS.OK).send();
     }),
     deleteCity: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
+    getCityById: jest.fn((req, res) => res.status(HTTP_STATUS.OK).send()),
 }));
 
 describe("City Routes", () => {
