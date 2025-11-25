@@ -4,9 +4,6 @@ import * as cityController from "../src/api/v1/controllers/cityController";
 import { HTTP_STATUS } from "../src/constants/httpConstants";
 import { auth } from "../src/config/firebaseConfig";
 import { citySchemas } from "../src/api/v1/validation/cityValidation";
-// import { AuthenticationError } from "../src/api/v1/errors/errors";
-// import { City } from "../src/api/v1/models/cityModel";
-// import response from "supertest";
 
 jest.mock("../src/config/firebaseConfig", () => ({
     auth: {
