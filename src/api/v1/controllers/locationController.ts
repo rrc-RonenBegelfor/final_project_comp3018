@@ -5,6 +5,15 @@ import * as cityService from "../services/cityService";
 import * as countryService from "../services/countryService";
 import { successResponse } from "../models/responseModel";
 
+/**
+ * Fetches the location and prints the IP and location data of the user.
+ * 
+ * Maybe only be used by an Admin for local testing.
+ * 
+ * @param req is not used.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ */
 export const getLocation = async (
     req: Request, 
     res: Response,
@@ -23,6 +32,15 @@ export const getLocation = async (
     }
 }
 
+/**
+ * Fetches the city based on the user's location (city they were found in).
+ * 
+ * Available for anyone.
+ * 
+ * @param req is not used.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ */
 export const getCityBasedOnLocation = async (
     req: Request,
     res: Response,
@@ -37,6 +55,15 @@ export const getCityBasedOnLocation = async (
     }
 };
 
+/**
+ * Fetches the Country based on the user's location (country they were found in).
+ * 
+ * Available for anyone.
+ * 
+ * @param req is not used.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ */
 export const getCountryBasedOnLocation = async (
     req: Request,
     res: Response,

@@ -119,6 +119,14 @@ export const deleteContinent = async (
     }
 };
 
+/**
+ * Retreives a continent by its unique ID.
+ * 
+ * @param req Express request object containing continent ID in params.
+ * @param res Express response object used to send the result.
+ * @param next Express next middleware function for error handling.
+ * @returns Responds with a success message or passes error to next middleware.
+ */
 export const getContinentById = async (
     req: Request,
     res: Response,
