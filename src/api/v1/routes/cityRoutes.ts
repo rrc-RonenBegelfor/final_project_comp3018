@@ -106,24 +106,14 @@ router.get("/:id", authenticate, cityController.getCityById);
  *       required: true
  *       content:
  *         application/json:
- *           example:
- *             countryId: ""
- *             name: ""
- *             date: ""
- *             type: ""
- *             description: ""
- *             damage: ""
- *             resolution: ""
+ *           schema:
+ *             $ref: '../components/schemas/CityRequest'
  *     responses:
  *       '201':
- *         description: City created successfully
  *         content:
  *           application/json:
- *             example:
- *               status: "success"
- *               data: "City Created"
- *               timestamp: "2004-12-31T12:00:00Z"
- *       '400':
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponse'
  *         description: Validation failed
  *       '401':
  *         description: Unauthorized - missing or invalid authentication token
@@ -149,37 +139,20 @@ router.post("/", authenticate, isAuthorized({hasRole: ["manager", "historian"]})
  *         required: true
  *         schema:
  *           type: string
- *         description: The city identifier
+ *         description: The unique identifier of the city
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
- *           example:
- *             countryId: ""
- *             name: ""
- *             date: ""
- *             type: ""
- *             description: ""
- *             damage: ""
- *             resolution: ""
+ *           schema:
+ *             $ref: '#/components/schemas/BranchRequest'
  *     responses:
  *       '200':
  *         description: City updated successfully
  *         content:
  *           application/json:
- *             example:
- *               status: "success"
- *               data:
- *                 id: "DaRVXicS82x7alS1yPk8"
- *                 countryId: "UK"
- *                 name: "London"
- *                 date: "2023-10-01"
- *                 type: "Flood"
- *                 description: "Severe flooding in downtown area"
- *                 damage: "High"
- *                 resolution: "Evacuation and relief efforts underway"
- *               message: "City successfully updated"
- *               timestamp: "2025-11-11T19:59:25.026Z"
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponse'
  *       '400':
  *         description: Validation failed
  *       '401':
@@ -208,16 +181,14 @@ router.put("/:id", authenticate, isAuthorized({ hasRole:["historian"] }), cityCo
  *         required: true
  *         schema:
  *           type: string
- *         description: The city identifier
+ *         description: The unique identifier of the city
  *     responses:
  *       '200':
  *         description: City deleted successfully
  *         content:
  *           application/json:
- *             example:
- *               status: "success"
- *               data: "City successfully deleted"
- *               timestamp: "2025-11-11T19:59:37.525Z"
+ *             schema:
+ *               $ref: '#/components/schemas/ApiResponse'
  *       '401':
  *         description: Unauthorized - missing or invalid authentication token
  *       '403':
