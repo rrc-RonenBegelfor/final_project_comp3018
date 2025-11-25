@@ -1,3 +1,6 @@
+/**
+ * Continent Model
+ */
 export interface Continent {
     id?: string;
     name: string;

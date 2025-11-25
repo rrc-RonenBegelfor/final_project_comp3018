@@ -1,3 +1,6 @@
+/**
+ * CityRequestModel is used applying Joi validation.
+ */
 export interface CityRequestModel {
     countryId: string;
     name: string;

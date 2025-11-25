@@ -5,6 +5,12 @@ import { AuthorizationOptions } from "../models/authorizationOptions";
 import { MiddlewareFunction } from "../types/express";
 import { AuthorizationError } from "../errors/errors";
 
+/**
+ * Middleware to authorize a user using their assigned roles on Firebase.
+ * 
+ * @param authOptions Role and UID (unique ID) holder.
+ * @returns {MiddlewareFunction}
+ */
 const isAuthorized = (
     authOptions: AuthorizationOptions
 ): MiddlewareFunction => {

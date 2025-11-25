@@ -1,3 +1,6 @@
+/**
+ * Location model to retreive only information required when used for Geocoding.
+ */
 export interface Location {
     continent_code: string;
     continent_name: string;

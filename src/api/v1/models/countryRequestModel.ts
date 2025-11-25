@@ -1,3 +1,6 @@
+/**
+ * CountryRequestModel is used applying Joi validation.
+ */
 export interface CountryRequestModel {
     continentId: string;
     name: string;

@@ -1,3 +1,6 @@
+/**
+ * Country Model
+ */
 export interface Country {
     id?: string;
     continentId: string;
