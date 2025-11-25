@@ -22,7 +22,6 @@ import { ContinentRequestModel } from "../models/continentRequestModel";
  *           maxLength: 2
  *           description: ISO-style two-letter continent code
  *           example: "AF"
- *
  *     Continent:
  *       allOf:
  *         - $ref: '#/components/schemas/ContinentRequest'
@@ -34,7 +33,6 @@ import { ContinentRequestModel } from "../models/continentRequestModel";
  *               example: "continent_01abc"
  *           required:
  *             - id
- *
  *     ValidationError:
  *       type: object
  *       required:

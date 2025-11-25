@@ -35,7 +35,6 @@ import { CountryRequestModel } from "../models/countryRequestModel";
  *           type: string
  *           description: Actions taken to resolve or mitigate the event
  *           example: "Evacuations completed and repairs initiated."
- *
  *     CountryRequest:
  *       type: object
  *       required:
@@ -59,7 +58,6 @@ import { CountryRequestModel } from "../models/countryRequestModel";
  *           description: List of major events associated with the country
  *           items:
  *             $ref: '#/components/schemas/CountryEvent'
- *
  *     Country:
  *       allOf:
  *         - $ref: '#/components/schemas/CountryRequest'
@@ -71,7 +69,6 @@ import { CountryRequestModel } from "../models/countryRequestModel";
  *               example: "country_456xyz"
  *           required:
  *             - id
- *
  *     CountryQuery:
  *       type: object
  *       properties:
@@ -80,7 +77,6 @@ import { CountryRequestModel } from "../models/countryRequestModel";
  *           minLength: 2
  *           description: Optional filter by continent ID
  *           example: "continent_01abc"
- *
  *     ValidationError:
  *       type: object
  *       required:

@@ -40,7 +40,6 @@ import { CityRequestModel } from "../models/cityRequestModel";
  *         resolution:
  *           type: string
  *           example: "Evacuation and relief efforts underway"
- *
  *     CityUpdateRequest:
  *       type: object
  *       description: Must include at least one updatable field.
@@ -62,7 +61,6 @@ import { CityRequestModel } from "../models/cityRequestModel";
  *           type: string
  *         resolution:
  *           type: string
- *
  *     City:
  *       allOf:
  *         - $ref: '#/components/schemas/CityRequest'
@@ -71,7 +69,6 @@ import { CityRequestModel } from "../models/cityRequestModel";
  *             id:
  *               type: string
  *               example: "DaRVXicS82x7alS1yPk8"
- *
  *     ValidationError:
  *       type: object
  *       required:
