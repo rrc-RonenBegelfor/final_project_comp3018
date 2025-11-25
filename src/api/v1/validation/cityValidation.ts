@@ -25,9 +25,9 @@ export const citySchemas: {
                 "string.min": "City name should have a minimum length of 4",
                 "any.required": "City name is required",
             }),
-            date: Joi.string().trim().required().messages({
-                "string.base": "Date must be a string",
-                "string.empty": "Date cannot be empty",
+            date: Joi.date().iso().required().messages({
+                "date.base": "Date must be a string",
+                "date.empty": "Date cannot be empty",
                 "any.required": "Date is required",
             }),
             type: Joi.string().trim().required().messages({
@@ -64,9 +64,9 @@ export const citySchemas: {
                 "string.empty": "City name cannot be empty",
                 "string.min": "City name should have a minimum length of 4",
             }),
-            date: Joi.string().trim().messages({
-                "string.base": "Date must be a string",
-                "string.empty": "Date cannot be empty",
+            date: Joi.date().iso().messages({
+                "date.base": "Date must be a string",
+                "date.empty": "Date cannot be empty",
             }),
             type: Joi.string().trim().messages({
                 "string.base": "Event type must be a type of string",

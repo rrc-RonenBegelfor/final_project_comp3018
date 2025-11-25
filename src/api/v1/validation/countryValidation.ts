@@ -34,9 +34,9 @@ export const countrySchemas: {
             data: Joi.array()
                 .items(
                     Joi.object({
-                        date: Joi.string().trim().required().messages({
-                            "string.base": "Event date must be a string",
-                            "string.empty": "Event date cannot be empty",
+                        date: Joi.date().iso().required().messages({
+                            "date.base": "Event date must be a string",
+                            "date.empty": "Event date cannot be empty",
                             "any.required": "Event date is required",
                         }),
                         type: Joi.string().trim().required().messages({
