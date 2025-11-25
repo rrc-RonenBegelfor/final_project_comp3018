@@ -5,3 +5,5 @@ ronen_ipstack_api_key.json
 
 logs/
 *.log
+
+.env

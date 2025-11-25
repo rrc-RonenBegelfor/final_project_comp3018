@@ -1,5 +1,4 @@
 import { Location } from "../models/locationModel";
-import accessKey from "../../../../ronen_ipstack_api_key.json"
 
 export const getIp = async (): Promise<string> => {
     try {
@@ -15,7 +14,7 @@ export const getIp = async (): Promise<string> => {
 
 export const getLocationData = async (ip: string): Promise<Location> => {
     try {
-        const response = await fetch(`http://api.ipstack.com/${ip}?access_key=${accessKey}`);
+        const response = await fetch(`http://api.ipstack.com/${ip}?access_key=${process.env.IPSTACK_API_KEY}`);
         const data: Location = await response.json();
 
         const location: Location = {
